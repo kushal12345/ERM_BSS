@@ -1,9 +1,8 @@
-export const baseURL = 'http://localhost:9000/'
 
-/*export const baseURL = process.env.NODE_ENV === 'production'
+export const baseURL = process.env.NODE_ENV === 'production'
  ? 
- 'https://api.example.com'
+ 'https://erm-bss-3g7r.vercel.app/'
   : 
-  'http://localhost:5000';
+  'http://localhost:9000';
 
-  */
+  
