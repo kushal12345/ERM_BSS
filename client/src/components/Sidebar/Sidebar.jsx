@@ -25,7 +25,7 @@ export function SidebarCom({setPage}) {
                 data-drawer-toggle="sidebar-multi-level-sidebar" 
                 aria-controls="sidebar-multi-level-sidebar" 
                 type="button" 
-                className="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                className="inline-flex items-center p-2  text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             >
                 <span className="sr-only">Open sidebar</span>
                 <svg className="size-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -33,8 +33,8 @@ export function SidebarCom({setPage}) {
                 </svg>
             </button>
             <aside id="sidebar-multi-level-sidebar" className="w-74 overflow-y-scroll no-scrollbar h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-                <div className="h-full px-3 py-4 overflow-y-scroll shadow-lg no-scrollbar bg-[#EAEBF4] dark:bg-[#131518] light:bg-gray-800">
-                    <ul className="space-y-2   border   shadow-md bg-white dark:bg-[#202528] dark:border-black border-gray-200 rounded-xl  font-medium">
+                <div className="h-full overflow-y-scroll shadow-lg no-scrollbar bg-[#EAEBF4] dark:bg-[#131518] light:bg-gray-800">
+                    <ul className="space-y-2  shadow-md bg-white dark:bg-[#202528] dark:border-black border-gray-200 rounded-xl  font-medium">
                         <li className='w-[100%] flex items-center justify-center'>
                             <a href="#" className="flex my-3 items-center  space-x-3 rtl:space-x-reverse">
                                 <img src={logo} className="h-16" alt="Flowbite Logo" />
@@ -75,16 +75,13 @@ export function SidebarCom({setPage}) {
                                     <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white" onClick={() => setPage('Salary')}>Salary</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white">Advance Payment</a>
+                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white" onClick={() => setPage('AdvancePayment')}>Advance Payment</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white">Commission</a>
+                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-70 0 dark:text-white" onClick={() => setPage('Paymenthistory')}>Payment history</a>
                                 </li>
                                 <li>
-                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-70 0 dark:text-white">Payment history</a>
-                                </li>
-                                <li>
-                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white">Payroll Reports</a>
+                                    <a href="#" className="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 light:text-white light:hover:bg-gray-700 dark:text-white" onClick={()=> setPage('PayrollReport')}>Payroll Reports</a>
                                 </li>
                             </ul>
                         </li>
@@ -149,7 +146,7 @@ export function SidebarCom({setPage}) {
                         <svg className="shrink-0 size-5 text-gray-500 transition duration-75 light:text-gray-400 dark:text-white group-hover:text-gray-900 light:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="m17.418 3.623-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377ZM6 12H4a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Z"/>
                         </svg>
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Message</span>
+                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white" onClick={()=> setPage('message')}>Message</span>
                         <span className="inline-flex items-center justify-center size-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full light:bg-blue-900 dark:bg-[#131518] light:text-blue-300 dark:text-white">3</span>
                         
                         </a>

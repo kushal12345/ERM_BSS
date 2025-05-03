@@ -9,6 +9,10 @@ import Manageclient from '../Content/Client/Manageclient';
 import SalaryRec from '../Content/Payout/Salary';
 import Attendance from '../Content/Attendance/Attendance';
 import AssignTask from '../Content/AssignTask/AssignTask';
+import Advancepayment from '../Content/Payout/Advancepayment';
+import PaymentHistory from '../Content/Payout/PaymentHistory';
+import PayrollReports from '../Content/Payout/PayrollReports';
+import Message from '../Content/message';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -21,8 +25,16 @@ const Dashboard = ({loginuser}) => {
         return <DashboardMain />;
       case "Salary":
         return <SalaryRec />;
+      case "AdvancePayment":
+        return <Advancepayment />;      
       case "NewAdmission":
         return <NewAdmission />;
+      case "Paymenthistory":
+        return <PaymentHistory />;
+      case "PayrollReport":
+        return <PayrollReports />;
+      case "message":
+        return <Message />;
       case "ssf":
         return <Ssf />;
       case "managestaff":
@@ -40,16 +52,16 @@ const Dashboard = ({loginuser}) => {
   
  
   return (
-    <div className='w-full h-screen overflow-hidden bg-[#EDEDF4] dark:bg-[#131518]  '>
-      <div className='w-full h-10  overflow-hidden'>
+    <div className='w-full h-screen pb-4 bg-[#EDEDF4] dark:bg-[#131518] grid grid-rows-[10%_90%] overflow-hidden'>
+      <div className='w-full overflow-hidden'>
         <Navbar loginuser={loginuser} />
       </div>
 
-      <div className='flex w-full h-full overflow-y-scroll no-scrollbar'>
-        <div className='w-54 h-auto  overflow-y-scroll no-scrollbar'>
+      <div className='grid grid-cols-12 w-full  overflow-y-scroll no-scrollbar'>
+        <div className='w-54 col-span-2 h-auto overflow-y-scroll no-scrollbar'>
           <SidebarCom setPage={setPage} />
         </div>
-        <div className='flex-1 h-auto overflow-hidden px-2 '>
+        <div className='col-span-10 h-auto overflow-y-scroll no-scrollbar px-2 '>
           {renderpage()}
         </div>
       </div>
