@@ -13,6 +13,11 @@ import Advancepayment from '../Content/Payout/Advancepayment';
 import PaymentHistory from '../Content/Payout/PaymentHistory';
 import PayrollReports from '../Content/Payout/PayrollReports';
 import Message from '../Content/message';
+import Dressstock from '../Content/Dressstock/Dressstock';
+import EmployeeWarningPage from '../Content/Warningform';
+import HolidayFormPage from '../Content/Holiday';
+import Waitingform from '../Content/Waitingform';
+
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -44,7 +49,15 @@ const Dashboard = ({loginuser}) => {
       case "attendance":
           return <Attendance />;   
       case "assigntask":
-          return <AssignTask/>;                       
+          return <AssignTask/>;
+      case "dressstock":
+          return <Dressstock />; 
+      case "warningpage":
+          return <EmployeeWarningPage />;
+      case "holidaypage":
+        return <HolidayFormPage />; 
+      case "waitingpage":
+        return <Waitingform />;
       default:
         return <DashboardMain />;
     }
