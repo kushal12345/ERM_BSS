@@ -215,7 +215,7 @@ export function SidebarCom({setPage}) {
                         </svg>
 
 
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Billing</span>
+                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white" onClick={()=>{setPage("invoice")}}>Invoice</span>
                         </a>
                     </li>
                     <li>

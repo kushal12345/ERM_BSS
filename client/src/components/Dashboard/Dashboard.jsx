@@ -17,7 +17,7 @@ import Dressstock from '../Content/Dressstock/Dressstock';
 import EmployeeWarningPage from '../Content/Warningform';
 import HolidayFormPage from '../Content/Holiday';
 import Waitingform from '../Content/Waitingform';
-
+import Invoice from '../Content/Invoice';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -58,6 +58,8 @@ const Dashboard = ({loginuser}) => {
         return <HolidayFormPage />; 
       case "waitingpage":
         return <Waitingform />;
+      case "invoice":
+        return <Invoice/>;
       default:
         return <DashboardMain />;
     }
