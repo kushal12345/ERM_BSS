@@ -1,6 +1,13 @@
 import React from 'react'
 import { Button } from "flowbite-react";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { Datepicker } from "flowbite-react";
+import { Select } from "flowbite-react";
+const months = [
+  "January", "February", "March", "April",
+  "May", "June", "July", "August",
+  "September", "October", "November", "December"
+];
 
 const InvoiceAdd = ({setPage}) => {
   return (
@@ -29,9 +36,18 @@ const InvoiceAdd = ({setPage}) => {
                                     <span className="text-5xl font-bold text-blue-600">INVOICE</span>
                                     <span className="text-xl font-bold mt-3 text-blue-600">Invoice No: #001</span>
                                     <span className="text-xl font-bold mt-3 text-blue-600">Date</span>
-                                    <span className="text-sm font-bold">Dec 6, 2025</span>
+                                    <span className="text-sm font-bold"><Datepicker className="w-[150px] text-black" /></span>
                                     <span className="text-xl font-bold mt-3 text-blue-600">Issue Month</span>
-                                    <span className="text-sm font-bold">Chaitra</span>
+                                    <span className="text-sm font-bold">
+                                        <Select id="issue_month" className="w-[150px] text-black">
+                                                <option value="" disabled>Select Month</option>
+                                            {months.map((month, index) => (
+                                                <option key={index}>{month}</option>
+                                            ))}
+                                        </Select>
+                                    </span>
+
+                                    
                                 </div>
 
                                 {/* Right Side */}

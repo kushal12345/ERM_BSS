@@ -224,7 +224,7 @@ export function SidebarCom({setPage}) {
                             <path fill-rule="evenodd" d="M5 5a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1h1a1 1 0 0 0 1-1 1 1 0 1 1 2 0 1 1 0 0 0 1 1 2 2 0 0 1 2 2v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a2 2 0 0 1 2-2ZM3 19v-7a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Zm6.01-6a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm-10 4a1 1 0 1 1 2 0 1 1 0 0 1-2 0Zm6 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0Zm2 0a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" clip-rule="evenodd"/>
                         </svg>
 
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Performance/Evaluation</span>
+                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white" onClick={()=>{setPage("performanceandeval")}}>Performance/Evaluation</span>
                         </a>
                     </li>
                     <li>
@@ -234,7 +234,7 @@ export function SidebarCom({setPage}) {
                         </svg>
 
 
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Documents</span>
+                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white" onClick={()=>{setPage("documents")}}>Documents</span>
                         </a>
                     </li>
 
@@ -245,20 +245,11 @@ export function SidebarCom({setPage}) {
                         </svg>
 
 
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Incidents</span>
+                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white" onClick={()=>{setPage("incidents")}}>Incidents</span>
                         </a>
                     </li>
                     
-                    <li>
-                        <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg light:text-white hover:bg-gray-100 light:hover:bg-gray-700 group">
-                        <svg className="size-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z"/>
-                        </svg>
-
-
-                        <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Notification</span>
-                        </a>
-                    </li>
+                  
                     
                     
                     </ul>

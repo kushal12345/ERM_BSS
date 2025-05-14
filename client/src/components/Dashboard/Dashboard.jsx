@@ -18,6 +18,9 @@ import EmployeeWarningPage from '../Content/Warningform';
 import HolidayFormPage from '../Content/Holiday';
 import Waitingform from '../Content/Waitingform';
 import Invoice from '../Content/Invoice';
+import PerformanceandEval from '../Content/PerformanceandEval';
+import Documents from '../Content/Documents';
+import Incident from '../Content/Incidents';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -60,6 +63,12 @@ const Dashboard = ({loginuser}) => {
         return <Waitingform />;
       case "invoice":
         return <Invoice/>;
+      case "performanceandeval":
+        return <PerformanceandEval />;
+      case "documents":
+        return <Documents />;
+      case "incidents":
+        return <Incident />;
       default:
         return <DashboardMain />;
     }
