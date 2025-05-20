@@ -19,7 +19,7 @@ export function SidebarCom({setPage}) {
         }));
     };
     return (
-        <div className="w-full h-screen overflow-y-scroll  no-scrollbar bg-[#EAEBF4]  ">     
+        <div className="w-full h-[100%] overflow-y-scroll no-scrollbar bg-white dark:bg-[#131518]">     
             <button 
                 data-drawer-target="sidebar-multi-level-sidebar" 
                 data-drawer-toggle="sidebar-multi-level-sidebar" 
@@ -32,20 +32,21 @@ export function SidebarCom({setPage}) {
                     <path clipRule="evenodd" fillRule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
                 </svg>
             </button>
-            <aside id="sidebar-multi-level-sidebar" className="w-74 overflow-y-scroll no-scrollbar h-screen transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
-                <div className="h-full overflow-y-scroll shadow-lg no-scrollbar bg-[#EAEBF4] dark:bg-[#131518] light:bg-gray-800">
-                    <ul className="space-y-2  shadow-md bg-white dark:bg-[#202528] dark:border-black border-gray-200 rounded-xl  font-medium">
-                        <li className='w-[100%] flex items-center justify-center'>
-                            <a href="#" className="flex my-3 items-center  space-x-3 rtl:space-x-reverse">
-                                <img src={logo} className="h-16" alt="Flowbite Logo" />
-                            </a>
-                        </li>
+            <aside id="sidebar-multi-level-sidebar" className="w-74 overflow-y-scroll bg-white dark:bg-[#131518]  no-scrollbar h-full transition-transform -translate-x-full sm:translate-x-0" aria-label="Sidebar">
+                <div className="h-full overflow-y-scroll  no-scrollbar ">
+                    <ul className=" px-3  dark:border-black border-gray-200 text-sm font-medium">
+                       
                         <li>
                             <a href="#" className=" rtl:space-x-reverse">
-                                <span className="self-center flex justify-center text-md font-bold whitespace-nowrap dark:text-white  w-full text-justify text-black">Bauddhanath Security </span>
-                                <span className="self-center flex justify-center text-md font-bold whitespace-nowrap dark:text-white  w-full text-justify text-black">Services
-                                </span>
+                                <div className="self-center py-3 flex justify-center items-center whitespace-nowrap dark:text-white  w-full text-justify text-black">
+                                    <img src={logo} className="h-8 mx-2" alt="Flowbite Logo" />
+                                   <span className='text-base dark:text-white'>
+                                    Bauddhanath Security 
+                                    </span> 
+                                </div>
+                                
                             </a>
+                            <hr className='my-3'/>
                         </li>
                         <li>
                             <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg light:text-white hover:bg-gray-100 dark:hover:bg-[#131518] light:hover:bg-gray-700 group" onClick={() => setPage('dashboard')}>
@@ -59,14 +60,14 @@ export function SidebarCom({setPage}) {
                         <li>
                             <button 
                                 type="button" 
-                                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 light:text-white light:hover:bg-gray-700" 
+                                className="flex items-center w-full p-2 text-sm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 light:text-white light:hover:bg-gray-700" 
                                 onClick={() => toggleDropdown('payout')}
                             >
                                 <svg className="shrink-0 size-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-white light:text-gray-400 light:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
                                     <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
                                 </svg>
                                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap dark:text-white dark:hover:text-black">Payout</span>
-                                <svg className="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <svg className="size-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                                 </svg>
                             </button>
@@ -88,14 +89,14 @@ export function SidebarCom({setPage}) {
                         <li>
                             <button 
                                 type="button" 
-                                className="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 light:text-white light:hover:bg-gray-700" 
+                                className="flex items-center w-full p-2 text-sm text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 light:text-white light:hover:bg-gray-700" 
                                 onClick={() => toggleDropdown('staffClient')}
                             >
                                 <svg className="shrink-0 size-5 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-white light:text-gray-400 light:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
                                     <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .l746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
                                 </svg>
                                 <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap dark:text-white">Staff & Client List</span>
-                                <svg className="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                                <svg className="size-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                                 </svg>
                             </button>
@@ -185,7 +186,7 @@ export function SidebarCom({setPage}) {
                             <path d="M8.961 16a.93.93 0 0 0 .189-.019l3.4-.679a.961.961 0 0 0 .49-.263l6.118-6.117a2.884 2.884 0 0 0-4.079-4.078l-6.117 6.117a.96.96 0 0 0-.263.491l-.679 3.4A.961.961 0 0 0 8.961 16Zm7.477-9.8a.958.958 0 0 1 .68-.281.961.961 0 0 1 .682 1.644l-.315.315-1.36-1.36.313-.318Zm-5.911 5.911 4.236-4.236 1.359 1.359-4.236 4.237-1.7.339.341-1.699Z"/>
                         </svg>
                         <span className="flex-1 ms-3 whitespace-nowrap dark:text-white">Forms</span>
-                        <svg className="size-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <svg className="size-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 4 4 4-4"/>
                         </svg>
                         </a>

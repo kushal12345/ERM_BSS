@@ -3,17 +3,17 @@ import React from 'react'
 const DashboardMain = () => {
   return (
     <div>
-             <div className="w-full h-screen overflow-y-scroll bg-[#fff] dark:bg-[#212528] shadow-xl rounded-xl no-scrollbar">
-                <span className='mx-6 font-bold text-xl dark:text-white'>Dashboard</span>
+             <div className="w-full pt-5 h-screen overflow-y-scroll bg-[#F5F6FA] dark:bg-[#212528] no-scrollbar">
+                <span className='mx-6 font-bold text-xl  dark:text-white'>Dashboard</span>
                     {/*  1st row */}
                     <div className="grid grid-cols-4 gap-4 m-4">
                        
-                    <div className="max-w-sm p-6 border  rounded-lg shadow-md bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
-                                <div>
-                                    <h2 className="font-bold text-green-700 flex justify-center"> Net Profit</h2>
+                    <div className="max-w-sm p-6 border rounded-lg  bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
+                                <div className=''>
+                                    <h2 className="font-bold  text-green-700 flex justify-center"> Net Profit</h2>
                                 </div>
 
-                                <div>
+                                <div className='flex flex-wrap'>
                                     <span>
                                     <b>Amount:</b> 3 Lakh
                                     </span>
@@ -23,13 +23,13 @@ const DashboardMain = () => {
                                     </span>
                                 </div>
 
-                                <div className="flex justify-center">
+                                <div className="flex  justify-center">
                                     <button type="button" className="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm mt-1 px-2 py-1 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">View More</button>
-                                </div>                                
-                            
-                            </div>
+                                </div>
 
-                            <div className="max-w-sm p-6 border   rounded-lg shadow-md dark:bg-[#202528] dark:border-black dark:text-white bg-white border-gray-200 grid grid-rows-3 ">
+                    </div>
+
+                            <div className="max-w-sm p-6 border  rounded-lg bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
                                 <div>
                                     <h2 className="font-bold text-yellow-700 flex justify-center">Unreceived Payment</h2>
                                 </div>
@@ -49,7 +49,7 @@ const DashboardMain = () => {
                                 </div>                                
                             
                             </div>
-                            <div className="max-w-sm p-6 border  rounded-lg shadow-md bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
+                            <div className="max-w-sm p-6 border  rounded-lg bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
                                 <div>
                                     <h2 className="font-bold text-blue-700 flex justify-center">Message</h2>
                                 </div>
@@ -71,7 +71,7 @@ const DashboardMain = () => {
                             </div>
 
                             
-                            <div className="max-w-sm p-6 border  rounded-lg shadow-md bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
+                            <div className="max-w-sm p-6 border  rounded-lg bg-white dark:bg-[#202528] dark:border-black dark:text-white border-gray-200 grid grid-rows-3 ">
                                 <div>
                                     <h2 className="font-bold text-red-700 flex justify-center">Emergency Event</h2>
                                 </div>

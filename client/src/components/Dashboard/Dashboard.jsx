@@ -76,16 +76,16 @@ const Dashboard = ({loginuser}) => {
   
  
   return (
-    <div className='w-full h-screen pb-4 bg-[#EDEDF4] dark:bg-[#131518] grid grid-rows-[10%_90%] overflow-hidden'>
-      <div className='w-full overflow-hidden'>
+    <div className='w-full h-screen pb-4 bg-[#F5F6FA] dark:bg-[#131518] grid grid-rows-[10%_90%] overflow-hidden'>
+      <div className='w-full pb-1 overflow-hidden'>
         <Navbar loginuser={loginuser} />
       </div>
 
-      <div className='grid grid-cols-12 w-full  overflow-y-scroll no-scrollbar'>
+      <div className='grid grid-cols-12 w-full overflow-y-scroll no-scrollbar'>
         <div className='w-54 col-span-2 h-auto overflow-y-scroll no-scrollbar'>
           <SidebarCom setPage={setPage} />
         </div>
-        <div className='col-span-10 h-auto overflow-y-scroll no-scrollbar px-2 '>
+        <div className='col-span-10 h-auto overflow-y-scroll no-scrollbar px-1'>
           {renderpage()}
         </div>
       </div>
