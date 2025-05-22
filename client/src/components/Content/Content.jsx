@@ -3,7 +3,7 @@ import React from 'react'
 const DashboardMain = () => {
   return (
     <div>
-             <div className="w-full pt-5 h-screen overflow-y-scroll bg-[#F5F6FA] dark:bg-[#212528] no-scrollbar">
+             <div className="w-full pt-5 h-screen  bg-[#F5F6FA] dark:bg-[#212528] no-scrollbar">
                 <span className='mx-6 font-bold text-xl  dark:text-white'>Dashboard</span>
                     {/*  1st row */}
                     <div className="grid grid-cols-4 gap-4 m-4">
@@ -14,12 +14,12 @@ const DashboardMain = () => {
                                 </div>
 
                                 <div className='flex flex-wrap'>
-                                    <span>
-                                    <b>Amount:</b> 3 Lakh
+                                    <span className='w-full text-xl text-left'>
+                                    <b>NRS 3,00,000</b>
                                     </span>
                                     <br/>
-                                    <span>
-                                        <b>Month:</b> Mangsir
+                                    <span className='w-full text-sm text-left text-gray-500 dark:text-gray-400 font-bold'>
+                                        Month: Mangsir
                                     </span>
                                 </div>
 
@@ -34,13 +34,13 @@ const DashboardMain = () => {
                                     <h2 className="font-bold text-yellow-700 flex justify-center">Unreceived Payment</h2>
                                 </div>
 
-                                <div>
-                                <span>
-                                    <b>Total Amount:</b> 15 Lakh
+                                 <div className='flex flex-wrap'>
+                                    <span className='w-full text-xl text-left'>
+                                    <b>NRS 13,00,000</b>
                                     </span>
                                     <br/>
-                                    <span>
-                                        <b>Months:</b> Mangsir
+                                    <span className='w-full text-sm text-left text-gray-500 dark:text-gray-400 font-bold'>
+                                        Month: Mangsir
                                     </span>
                                 </div>
 

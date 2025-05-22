@@ -1,8 +1,12 @@
-import React,{useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import { Datepicker } from 'flowbite-react';
 import api from '../../utils/api';
+import { baseURL } from '../../utils/Baseaddress';
+
 
 const NewAdmission =  () => {
+    const [temppic,settemppic] = useState(null);
+
     const [user,setUser] = useState({
         image: "",
         Fname: "",
@@ -46,6 +50,8 @@ const NewAdmission =  () => {
 
     });
 
+   
+    
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         console.log(`Changing field: ${name}, Value: ${type === 'checkbox' ? checked : value}`); // Log the field being changed
@@ -66,6 +72,9 @@ const NewAdmission =  () => {
 
     const handleImageChange = (e) => {
         const image = e.target.files[0].name;
+        if(image){
+            settemppic(URL.createObjectURL(e.target.files[0]));
+        }
         setUser({
             ...user,
             image: image
@@ -103,7 +112,7 @@ const NewAdmission =  () => {
             'PerState', 'PerDist', 'PerMun', 'PerAddress', 'PerTol',
             'doctype', 'docno', 'IssueDistrict', 'IssueDate', 'docfile',
             'marrital', 'Huswifname', 'famphno', 'famdocfile', 'mothname',
-            'fathname', 'grandfathname', 'edu', 'termsaggree'
+            'fathname', 'grandfathname', 'edu', 'termsaggree','image'
         ];
     
         // Check if required fields of user are empty
@@ -148,7 +157,6 @@ const NewAdmission =  () => {
         }
     };
      
-
   return (
     <div className="w-full h-screen overflow-y-scroll bg-[#fff] border border-gray-200 dark:bg-[#212528] shadow-xl rounded-xl no-scrollbar">
            
@@ -181,7 +189,7 @@ const NewAdmission =  () => {
                     <div onClick={() => document.getElementById('image').click()} className="cursor-pointer">
                         <img 
                             className="rounded-full w-full h-full object-cover" 
-                            src="https://militaryhealthinstitute.org/wp-content/uploads/sites/37/2021/08/blank-profile-picture-png.png" 
+                            src={temppic ? `${temppic}` : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
                             alt="Profile" 
                             name="image"
                         />

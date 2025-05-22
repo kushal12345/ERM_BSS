@@ -7,7 +7,12 @@ import corsOption from "./Utils/CorsOption.js"
 import router from "./routes/route.js"
 import startServer from "./Req/Getreq/startServer.js"
 import bodyParser from "body-parser"
+import path, {dirname} from "path";
+import {fileURLToPath} from 'url';
 
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 connectDB();
 
@@ -25,6 +30,8 @@ app.use(cors(corsOption));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+var publicDir = path.join(__dirname, './uploads/documents');
+app.use(express.static(publicDir));
 
 
 app.get("/",(req,res)=>{

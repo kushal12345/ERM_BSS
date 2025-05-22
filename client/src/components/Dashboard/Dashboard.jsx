@@ -81,7 +81,7 @@ const Dashboard = ({loginuser}) => {
         <Navbar loginuser={loginuser} />
       </div>
 
-      <div className='grid grid-cols-12 w-full overflow-y-scroll no-scrollbar'>
+      <div className='grid grid-cols-12 w-full '>
         <div className='w-54 col-span-2 h-auto overflow-y-scroll no-scrollbar'>
           <SidebarCom setPage={setPage} />
         </div>
