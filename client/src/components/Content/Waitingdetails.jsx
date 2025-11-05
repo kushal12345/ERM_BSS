@@ -1,21 +1,27 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import Modalhire from './Waitingaccept';
+import { fetchstaff } from '../Fetch/Fetchstaff';
 
 const Modaldetails = ({ show, onClose, employee, setSelectedEmployee ,setIsHiring }) => {
-
-  const [showModal, setShowModal] = useState(false);
-  const [data,setdata] = useState(false);
-  
+  const [data, setData] = useState(null);  
+   useEffect(() => {
+    const staffId = employee?.empID?.[0]?._id;
+    if (staffId) {
+      fetchstaff(setData, staffId);
+    }
+  }, [employee]);
   if (!show) return null;
 
-
-
   const handleData =(emp) => {
+    console.log("Selected Employee:", emp);
     setIsHiring(true);
     setSelectedEmployee(emp);
     console.log(emp);
   }
+  
+ 
 
+  employee = data ? data[0] : employee; // Fallback to employee prop if data is not available
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md">
@@ -25,8 +31,7 @@ const Modaldetails = ({ show, onClose, employee, setSelectedEmployee ,setIsHirin
         </div>
         <div className=''>
           {
-            Array.isArray(employee) && employee.map((employee, index) => (
-                <div key={index} className="mb-4 overflow-y-scroll max-h-72">
+                <div className="mb-4 overflow-y-scroll max-h-72">
                    <div className="space-y-2 text-gray-800 dark:text-white">
                         <p><strong>Full Name:</strong> {employee.Fname} {employee.Mname} {employee.Lname}</p>
                         <p><strong>Phone:</strong> {employee.phno}</p>
@@ -43,11 +48,11 @@ const Modaldetails = ({ show, onClose, employee, setSelectedEmployee ,setIsHirin
                         <p><strong>Permanent Address:</strong> {employee.PerTol}, {employee.PerMun}, {employee.PerDist}, State {employee.PerState}</p>
                         <p><strong>Temporary Address:</strong> {employee.TempTol}, {employee.TempMun}, {employee.TempDist}, State {employee.TempState}</p>
                     </div> 
-                    <button onClick={() => handleData(employee)} className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full">Hire</button>
+                    <button onClick={() => handleData(employee)} className={`mt-4 bg-blue-600 text-white px-4 py-2 ${data ? "hidden" : ""} rounded hover:bg-blue-700 w-full`}>Hire</button>
                 </div>
                 
           
-          ))}
+          }
 
         </div>
       </div>

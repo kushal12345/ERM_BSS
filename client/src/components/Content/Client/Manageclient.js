@@ -1,9 +1,12 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Datepicker } from 'flowbite-react';
 import api from '../../../utils/api';
+import { fetchClient } from '../../Fetch/FetchClient';
+
 
 const Manageclient = () => {
     const [active,setactive] = useState(null);
+    const [clients,setClients] = useState(null);
     
     const [user,setUser] = useState({
         Oname: '',
@@ -23,6 +26,10 @@ const Manageclient = () => {
         NES: 0,
         file_contract: ''
     });
+
+    useEffect(() => {
+        fetchClient(setClients);
+    }, []);
 
     const handleDateChange = (date) => {
         setUser({
@@ -320,109 +327,113 @@ const Manageclient = () => {
                                     <span className='mx-6 font-bold text-xl dark:text-white'>List of Clients</span>
                                     <hr className='mx-6 my-2 border border-gray-300 dark:border-gray-700' />
                     </div>
-            
-                    <div className=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
-                        <table className="w-full overflow-scroll  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr className='text-center align-middle'>
-                                    <th scope="col" className=" px-2 py-3">
-                                        Office  Name
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Pan No
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Location
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Client Name
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Phone No
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Contracted  Annuity 
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Dashain Bonus
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Contract  Interval
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        VAT
-                                    </th>
-                                    <th scope="col" className="px-2 py-3">
-                                        Services
-                                    </th>
-                                   
-                                    <th scope="col" className="px-2 py-3">
-                                        Contract File
-                                    </th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="  text-center align-middle odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
-                                    <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Jane Cooper
-                                    </th>
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        123456
-                                    </td>
-                                    <td className="px-0 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                       Samakhusi,<br/> Kathmandu
-                                    </td>
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Kushal Luitel
-                                    </td>
-                                    
-                                    <td className="px-2 py-4">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            123456
-                                        </td>
+                    {
+                        clients && clients.map((client, index) => (
+                            <div key={index} className=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+                                <table className="w-full overflow-scroll  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                                        <tr className='text-center align-middle'>
+                                            <th scope="col" className=" px-2 py-3">
+                                                Office  Name
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Pan No
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Location
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Client Name
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Phone No
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Contracted  Annuity 
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Dashain Bonus
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Contract  Interval
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                VAT
+                                            </th>
+                                            <th scope="col" className="px-2 py-3">
+                                                Services
+                                            </th>
+                                        
+                                            <th scope="col" className="px-2 py-3">
+                                                Contract File
+                                            </th>
+                                            
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className="  text-center align-middle odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
+                                            <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.Oname}
+                                            </th>
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.Pno}
+                                            </td>
+                                            <td className="px-0 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.OAdd}
+                                            </td>
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.Cname}
+                                            </td>
+                                            
+                                            <td className="px-2 py-4">
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {client.Phno}
+                                                </td>
 
-                                    </td>
+                                            </td>
 
-                                    <td className="px-2 py-4">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            25000
-                                        </td>
-                                    </td>
+                                            <td className="px-2 py-4">
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    {client.Ann}
+                                                </td>
+                                            </td>
 
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        yes
-                                    </td>
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.dashbon ? 'Yes' : 'No'}
+                                            </td>
 
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        1 Year <br/>
-                                        (
-                                        2022-01-01 <b>-</b> <br/>
-                                        2023-01-01
-                                        )
-                                    </td>
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                { client.constdate.split('T')[0]} <br/> {client.conendate.split('T')[0]}
+                                            </td>
 
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        yes
-                                    </td>
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.vat ? 'Yes' : 'No'}
+                                            </td>
 
-                                    <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                       <b>Security <br/> Guard</b>: 2 <br/>
-                                    </td>
-                                    <td className="px-2 py-4">
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <a className=''>View</a>
-                                        </td>
-                                    </td>
-                       
-                                </tr>
-                                
+                                            <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {client.NSG > 0 ? <b>Security Guard : {client.NSG}</b>  : null} <br/>
+                                                {client.NCleaner > 0 ? <b>Cleaner : {client.NCleaner}</b>  : null} <br/>
+                                                {client.NBouncer > 0 ? <b>Bouncer : {client.NBouncer}</b>  : null} <br/>
+                                                {client.NEP > 0 ? <b>Executive Protection : {client.NEP}</b>  : null} <br/>
+                                                {client.NES > 0 ? <b>Event Security : {client.NES}</b>  : null} <br/>
+                                            </td>
+                                            <td className="px-2 py-4">
+                                                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                    <a className=''>View</a>
+                                                </td>
+                                            </td>
                             
-                            </tbody>
-                        </table>
+                                        </tr>
+                                        
+                                    
+                                    </tbody>
+                                </table>
 
-                        
-                    </div>
+                                
+                            </div>
+                        ))
+                    }
+                    
                     </div>
                 ) : null}   
                     

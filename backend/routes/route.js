@@ -6,6 +6,13 @@ import { NewAdmission } from '../controllers/NewAdmission.js';
 import upload from '../Utils/multer.js';
 import { Fetchallstaff } from '../controllers/FetchCcontroller.js';
 import { NewClient } from '../controllers/NewClient.js';
+import { FetchallClient } from '../controllers/FetchCcontroller.js';
+import { Hire } from '../controllers/Hire.js';
+import { FetchallHired } from '../controllers/FetchCcontroller.js';
+import { TerminateEmp } from '../controllers/TerminateEmp.js';
+import { FetchTerminated } from '../controllers/FetchTerminated.js';
+import { FetchSearchedstaff } from '../controllers/FetchCcontroller.js';
+
 const router = express.Router();
 
 router.route("/login").post(Login).get((req,res,next) => {res.send("Hello World")});
@@ -48,6 +55,20 @@ router.route("/newadmission").post(upload.fields([
     { name: 'termsaggree' }
 ]), NewAdmission).get((req, res, next) => { res.send("New Admission") });
 
+router.route("/hire").post(upload.fields([
+    { name: "employeeId" },
+    { name: "post" },
+    { name: "shift" },
+    { name: "hrs" },
+    { name: "salary" },
+    { name: "starttime" },
+    { name: "startAMPM" },
+    { name: "endtime" },
+    { name: "endAMPM" },
+    { name: "Dress" },
+    { name: "JoinedDate" }
+]),Hire).get((req, res, next) => { res.send("Hire Employee") });
+
 router.route("/client/add").post(upload.fields([
     {name: "Oname"},
     {name: "Pno"},
@@ -67,9 +88,15 @@ router.route("/client/add").post(upload.fields([
     {name: "file_contract"}
 ]),NewClient).get((req,res,next) => {res.send("New Client")});
 
-router.route(`/fetchallstaff`).get(Fetchallstaff);
+router.route(`/fetchallstaff/:data`).get(Fetchallstaff);
+router.route(`/FetchSearchedstaff/:data`).get(FetchSearchedstaff);
+router.route(`/employees/:data`).post(TerminateEmp);
 
+router.route(`/fetchallclient`).get(FetchallClient);
+router.route("/fetchallterminated").get(FetchTerminated);
+//router.route("/verifytoken").post(VerifyToken).get((req,res,next) => {res.send("Verify Token")});
 
+router.route("/fetchallhired").get(FetchallHired);
 router.route("/protected").post(VerifyToken,ProtectRoute).get((req,res)=>{
     res.send("Protected Route");
 });

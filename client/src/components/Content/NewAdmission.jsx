@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react';
 import { Datepicker } from 'flowbite-react';
 import api from '../../utils/api';
-import { baseURL } from '../../utils/Baseaddress';
 
 
 const NewAdmission =  () => {
@@ -54,7 +53,6 @@ const NewAdmission =  () => {
     
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        console.log(`Changing field: ${name}, Value: ${type === 'checkbox' ? checked : value}`); // Log the field being changed
         setUser ({
             ...user,
             [name]: type === 'checkbox' ? checked : value // Handle checkbox separately
@@ -63,7 +61,6 @@ const NewAdmission =  () => {
     
     const handleFileChange = (e) => {
         const { name, files } = e.target;
-        console.log(`File changing field: ${name}, File: ${files[0] ? files[0].name : 'No file selected'}`); // Log the file being changed
         setUser ({
             ...user,
             [name]: files[0] // Store the entire file object
@@ -82,11 +79,20 @@ const NewAdmission =  () => {
     }
 
     const handleDateChange = (date) => {
-        setUser ({
-            ...user,
-            dob: date ? date.toISOString().split('T')[0] : "" // Store date as a string in YYYY-MM-DD format
-        });
-    };
+        if (!date) {
+        setUser({ ...user, dob: "" });
+        return;
+        }
+
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const day = String(date.getDate()).padStart(2, '0');
+
+        const localDate = `${year}-${month}-${day}`;
+
+        setUser({ ...user, dob: localDate });
+        
+        };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -117,6 +123,7 @@ const NewAdmission =  () => {
     
         // Check if required fields of user are empty
         const emptyFields = requiredFields.filter(field => !user[field]);
+        console.log('requiredFields:', user);
         if (emptyFields.length > 0) {
             console.log('Please fill all the required fields');
             return;
@@ -136,7 +143,6 @@ const NewAdmission =  () => {
                     'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log('response:', response);
     
             // Reset the form or redirect the user
             setUser ({
@@ -150,6 +156,7 @@ const NewAdmission =  () => {
                 fathdocfile: null, grandfathname: "", grandfathno: "", grandfathdocfile: null,
                 edu: "", termsaggree: false // Reset checkbox to false
             });
+            settemppic(null);
     
         } catch (error) {
             console.error('Error:', error);
@@ -241,7 +248,7 @@ const NewAdmission =  () => {
                             name="dob"
                             value={user.dob}
                             onSelectedDateChanged={handleDateChange}
- //                           selected={user.dob ? new Date(user.dob) : null} // Convert string to Date object
+                            selected={user.dob ? new Date(user.dob) : null} // Convert string to Date object
                         />
                     </div>
                         </div>

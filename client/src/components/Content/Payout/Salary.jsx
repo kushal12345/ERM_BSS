@@ -1,256 +1,169 @@
-import React,{useEffect, useState} from 'react'
+import React, { useState, useMemo } from "react";
+import { Search } from "lucide-react";
 
 const SalaryRec = () => {
-        const [active,setactive] = useState(null);
-        const [isCheckedad, setIsCheckedad] = useState(Array(2).fill(false));
-        const [isChecked, setIsChecked] = useState(Array(2).fill(false));
+  const [active, setActive] = useState("bs");
+  const [searchTerm, setSearchTerm] = useState("");
 
-        
-        const handleCheckboxClick = (index) => {
-           setIsChecked((prev) => {
-                const newCheckedState = [...prev];
-                newCheckedState[index] = !newCheckedState[index]; // Toggle the checkbox state for the specific index
-                return newCheckedState;
-           });
-        };
-        
-        const handleCheckboxClickad = (index) => {
-            setIsCheckedad((prev) => {
-              const newCheckedState = [...prev];
-              newCheckedState[index] = !newCheckedState[index]; // Toggle the checkbox state for the specific index
-              return newCheckedState;
-            });
-          };
+  const [isCheckedBS, setIsCheckedBS] = useState(Array(3).fill(false));
+  const [isCheckedAD, setIsCheckedAD] = useState(Array(3).fill(false));
 
+  const staffListBS = [
+    { name: "Ramesh Shrestha", phone: "9841449298", duty: "Samakhusi, KTM", salary: 15000 },
+    { name: "Anita Gurung", phone: "9808123456", duty: "Baneshwor, KTM", salary: 18000 },
+    { name: "Kiran Basnet", phone: "9811122334", duty: "Maharajgunj, KTM", salary: 17000 },
+  ];
+
+  const staffListAD = [
+    { name: "Hari Sharma", phone: "9841223344", duty: "Lazimpat, KTM", salary: 20000 },
+    { name: "Sita Karki", phone: "9811772233", duty: "New Road, KTM", salary: 16000 },
+  ];
+
+  const handleCheckboxClick = (index, type) => {
+    if (type === "bs") {
+      setIsCheckedBS((prev) => {
+        const copy = [...prev];
+        copy[index] = !copy[index];
+        return copy;
+      });
+    } else {
+      setIsCheckedAD((prev) => {
+        const copy = [...prev];
+        copy[index] = !copy[index];
+        return copy;
+      });
+    }
+  };
+
+  const filteredBS = useMemo(
+    () => staffListBS.filter((s) => s.name.toLowerCase().includes(searchTerm.toLowerCase())),
+    [searchTerm]
+  );
+
+  const filteredAD = useMemo(
+    () => staffListAD.filter((s) => s.name.toLowerCase().includes(searchTerm.toLowerCase())),
+    [searchTerm]
+  );
+
+  const renderTable = (list, checkedState, type) => (
+    <div className="w-full relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
+          <tr className="text-center">
+            <th className="px-3 py-3">Staff Name</th>
+            <th className="px-3 py-3">Phone</th>
+            <th className="px-3 py-3">Duty Location</th>
+            <th className="px-3 py-3">Salary</th>
+            <th className="px-3 py-3">Voucher</th>
+            <th className="px-3 py-3">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {list.map((s, index) => (
+            <tr
+              key={index}
+              className="text-center border-b dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+            >
+              <td className="px-3 py-4 font-medium text-gray-900 dark:text-white">{s.name}</td>
+              <td className="px-3 py-4">{s.phone}</td>
+              <td className="px-3 py-4">{s.duty}</td>
+              <td className="px-3 py-4">{s.salary}</td>
+              <td className="px-3 py-4">
+                <button className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-3 py-1.5 transition">
+                  Upload
+                </button>
+              </td>
+              <td className="px-3 py-4">
+                <label className="inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={checkedState[index]}
+                    onChange={() => handleCheckboxClick(index, type)}
+                    className="sr-only peer"
+                  />
+                  <div className="relative w-11 h-6 bg-gray-300 rounded-full peer dark:bg-gray-600 
+                    peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px]
+                    after:bg-white after:h-5 after:w-5 after:rounded-full after:transition-all peer-checked:bg-green-500">
+                  </div>
+                </label>
+                <span
+                  className={`ml-2 text-xs font-semibold ${
+                    checkedState[index] ? "text-green-500" : "text-red-500"
+                  }`}
+                >
+                  {checkedState[index] ? "Paid" : "Unpaid"}
+                </span>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
   return (
-    <div className="w-full h-screen p-3 overflow-y-scroll bg-[#fff] border border-gray-200 dark:bg-[#212528] shadow-xl rounded-xl no-scrollbar">
-            <span className='mx-6  font-bold text-xl dark:text-white '>Salary Payout</span>
-                <hr className='mx-6 my-2 border border-gray-300 dark:border-gray-700' />
-                
-                    
-    
-                    <div class="inline-flex rounded-md shadow-xs" role="group">
-                        <button type="button" onClick={()=>setactive("bs")} class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-s-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-                            B.S
-                        </button>
-                
-                        <button type="button" onClick={()=>setactive("ad")} class="px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-e-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:bg-gray-800 dark:border-gray-700 dark:text-white dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-blue-500 dark:focus:text-white">
-                            A.D
-                        </button>
-                    </div>
-    
-                    {active === "bs" ? (
-                        // Render Active Staffs
-                        <div className=' mt-6'>
-                        {/*  2nd row */}
-                        <form class="max-w-md my-4 mx-auto">   
-                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                    </svg>
-                                </div>
-                                <input type="search" id="default-search" class="block w-full px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Clients" required />
-                                <button type="submit" class="text-white absolute end-2.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                            </div>
-                        </form>
-                        <div className=' mt-6'>
-                                        <span className='mx-6 font-bold text-xl dark:text-white'>Salary For Staffs [Nepali Date]</span><br/>
-                                        <span className='mx-6 font-bold text-xl dark:text-white'>Month: Falgun</span><br/>
-                                        <span className='m-6 text-sm dark:text-white'><b>Note</b>: 1% TDS automatically Reduced and 32% amount reduced to only SSF registered employees  </span>
-                                        <hr className='mx-6 my-2 border border-gray-300 dark:border-gray-700' />
-                        </div>
-                
-                        <div className=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full overflow-scroll  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <tr className='text-center align-middle'>
-                                        <th scope="col" className=" px-2 py-3">
-                                            Staff  Name
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Phone No
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Duty Location
-                                        </th>
+    <div className="w-full h-screen p-4 overflow-y-scroll bg-white border border-gray-200 dark:bg-[#1b1e23] shadow-xl rounded-xl no-scrollbar">
+      <h1 className="text-2xl font-bold mb-2 dark:text-white">Salary Payout</h1>
+      <hr className="mb-4 border-gray-300 dark:border-gray-700" />
 
-                                        <th scope="col" className="px-2 py-3">
-                                            Salary
-                                        </th>
+      {/* Toggle Buttons */}
+      <div className="flex gap-2 mb-4 justify-center">
+        <button
+          type="button"
+          onClick={() => setActive("bs")}
+          className={`px-4 py-2 text-sm font-medium rounded-md ${
+            active === "bs"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+          }`}
+        >
+          B.S
+        </button>
+        <button
+          type="button"
+          onClick={() => setActive("ad")}
+          className={`px-4 py-2 text-sm font-medium rounded-md ${
+            active === "ad"
+              ? "bg-blue-600 text-white"
+              : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"
+          }`}
+        >
+          A.D
+        </button>
+      </div>
 
-                                        <th scope="col" className="px-2 py-3">
-                                            OverTime
-                                        </th>
-                                       
-                                        <th scope="col" className="px-2 py-3">
-                                            Attendance
-                                        </th>
-
-
-                                        <th scope="col" className="px-2 py-3">
-                                            Pre-Payment
-                                        </th>
-                                       
-                                        <th scope="col" className="px-2 py-3">
-                                            Dress
-                                        </th>
-
-                                        
-                                        <th scope="col" className="px-2 py-3">
-                                            Previous Due
-                                        </th>
-
-                                        <th scope="col" className="px-2 py-3">
-                                            Total Amount
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Upload Voucher
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Status
-                                        </th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {['div1', 'div2'].map((div, index) => (
-                                    <tr key={index} className={`text-center align-middle ${isChecked[index] ? "bg-green-400" : "bg-red-400"} dark:border-gray-700 border-gray-200`}>
-                                        <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Jane Cooper</th>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">9841449298</td>
-                                        <td className="px-0 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Samakhusi,<br /> Kathmandu</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">15000</td>
-                                        <td className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Nurse City: 1 Day<br />Rate: 20000<hr />Holy Garden: 1 Day<br />Rate: 20000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">30 Days</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">5000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <input type="number" className="border border-gray-300 w-24 dark:border-gray-700 rounded-md p-1" placeholder='Amount'/>
-                                        </td>                                        
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">15000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">15000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-3 py-1.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Upload</button>
-                                        </td>
-                                       
-                                        <td className="px-2 py-4">
-                                            <label className="inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" value="" className="sr-only peer" checked={isChecked[index]} onClick={() => handleCheckboxClick(index)} />
-                                                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                ))}
-                                
-                                </tbody>
-                            </table>
-    
-                            
-                        </div>
-                        </div>
-                    ) : active === "ad" ? (
-                        // Render Terminated Staffs
-                        <div className=' mt-6'>
-                        {/*  2nd row */}
-                        <form class="max-w-md my-4 mx-auto">   
-                            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
-                                    </svg>
-                                </div>
-                                <input type="search" id="default-search" class="block w-full px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Clients" required />
-                                <button type="submit" class="text-white absolute end-2.5 bottom-1.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
-                            </div>
-                        </form>
-                        <div className=' mt-6'>
-                                        <span className='mx-6 font-bold text-xl dark:text-white'>Salary For Staffs [English Date]</span><br/>
-                                        <span className='mx-6 font-bold text-xl dark:text-white'>Month: March</span>
-                                        <hr className='mx-6 my-2 border border-gray-300 dark:border-gray-700' />
-                        </div>
-                
-                        <div className=" w-full relative overflow-x-auto shadow-md sm:rounded-lg">
-                            <table className="w-full overflow-scroll  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <thead className="text-xs text-gray-700  bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                <tr className='text-center align-middle'>
-                                        <th scope="col" className=" px-2 py-3">
-                                            Staff  Name
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Phone No
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Duty Location
-                                        </th>
-                                       
-                                        <th scope="col" className="px-2 py-3">
-                                            Attendance
-                                        </th>
-
-                                        <th scope="col" className="px-2 py-3">
-                                            OverTime
-                                        </th>
-
-                                        
-                                        <th scope="col" className="px-2 py-3">
-                                            Previous Due
-                                        </th>
-
-                                        <th scope="col" className="px-2 py-3">
-                                            Salary
-                                        </th>
-
-                                        <th scope="col" className="px-2 py-3">
-                                            Pre-Payment
-                                        </th>
-
-                                        <th scope="col" className="px-2 py-3">
-                                            Total Amount
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Upload Voucher
-                                        </th>
-                                        <th scope="col" className="px-2 py-3">
-                                            Status
-                                        </th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                {['div1', 'div2'].map((div, index) => (
-                                    <tr key={index} className={`text-center align-middle ${isCheckedad[index] ? "bg-green-400" : "bg-red-400"} dark:border-gray-700 border-gray-200`}>
-                                        <th scope="row" className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Jane Cooper</th>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">9841449298</td>
-                                        <td className="px-0 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Samakhusi,<br /> Kathmandu</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">30 Days</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Nurse City: 1 Day<br />Rate: 20000<hr />Holy Garden: 1 Day<br />Rate: 20000</td>
-                                        <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">15000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">15000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">5000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">25000</td>
-                                        <td className="px-2 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-full text-sm px-3 py-1.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Upload</button>
-                                        </td>
-                                        <td className="px-2 py-4">
-                                            <label className="inline-flex items-center cursor-pointer">
-                                                <input type="checkbox" value="" className=" peer sr-only" checked={isCheckedad[index]} onClick={() => handleCheckboxClickad(index)} />
-                                                <div className="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"></div>
-                                            </label>
-                                        </td>
-                                    </tr>
-                                ))}
-                                </tbody>
-                            </table>
-    
-                            
-                        </div>
-                        </div>
-                    ) : null}   
-                        
+      {/* Search Box */}
+      <div className="max-w-md mx-auto mb-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-3 text-gray-400" size={18} />
+          <input
+            type="text"
+            placeholder="Search staff..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 
+                      focus:ring-2 focus:ring-blue-500 focus:outline-none
+                      dark:bg-gray-700 dark:text-white dark:border-gray-600"
+          />
         </div>
-  )
-}
+      </div>
 
-export default SalaryRec
+      {/* Notes */}
+      <div className="text-center mb-4 text-gray-700 dark:text-gray-300">
+        <p className="font-semibold">
+          {active === "bs" ? "Nepali Date - Month: Falgun" : "English Date - Month: March"}
+        </p>
+        <p className="text-xs">
+          <b>Note:</b> 1% TDS automatically reduced and 32% reduction applies to SSF-registered employees.
+        </p>
+      </div>
+
+      {/* Table */}
+      {active === "bs"
+        ? renderTable(filteredBS, isCheckedBS, "bs")
+        : renderTable(filteredAD, isCheckedAD, "ad")}
+    </div>
+  );
+};
+
+export default SalaryRec;

@@ -1,13 +1,15 @@
 import React,{useState,useEffect} from 'react'
 import { fetchstaff } from "../../Fetch/Fetchstaff";
-
+import { fetchClient } from '../../Fetch/FetchClient';
 const AssignTask = () => {
 
-       const [isCheckedad, setIsCheckedad] = useState(Array(100).fill(true));
+       const [isCheckedad, setIsCheckedad] = useState([]);
         let [data,setdata] = useState(null);
+        let [clientData,setClientData] = useState(null);
         
         useEffect(() => {
-                fetchstaff(setdata);
+                fetchstaff(setdata,"all");
+                fetchClient(setClientData);
             }, []);
            
         const handleCheckboxClickad = (index) => {
@@ -33,6 +35,8 @@ const AssignTask = () => {
                         <th scope="col" className="w-3/10">Employee Name</th>
                         <th scope="col" className="w-2/10">Phone No</th>
                         <th scope="col" className="w-3/10">Post</th>
+                        <th scope="col" className="w-3/10">Salary</th>
+                        <th scope="col" className="w-3/10">Location</th>
                         <th scope="col" className="w-2/10">Job Type</th>
                         <th scope="col" className="w-1/10">Shift</th>
                         <th scope="col" className="w-1/10">Status</th>
@@ -42,24 +46,26 @@ const AssignTask = () => {
                     {data && data.map((datas, index) => (
                         <tr key={index} className={`text-center align-middle ${isCheckedad[index] ? "bg-green-400" : "bg-red-400"} dark:border-gray-700 border-gray-200`}>
                             <th scope="row" className="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{index + 1}</th>
-                            <td className="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{datas.Fname} {datas.Mname?datas.Mname:""} {datas.Lname} </td>
-                            <td className="px-0 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{datas.phno}</td>
+                            <td className="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{datas.Fname?datas.Fname:""} {datas.Mname?datas.Mname:""} {datas.Lname?datas.Lname:""} </td>
+                            <td className="px-0 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">{datas.phno?datas.phno:""}</td>
                             <td className="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 <select className='h-8 w-44 border border-gray-300 px-2 py-1 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-700 dark:text-white' required>
                                             <option value="">None</option>
-                                            <option value="securityguard">Samakhhusi, Nurse City</option>
-                                            <option value="manager">Manager</option>
-                                            <option value="finance">Finance</option>
-                                            <option value="ceo">CEO</option>
-                                        </select></td>
+                                            {clientData && clientData.map((client, index) => (
+                                                <option key={index} value={client.Oname}>{client.Oname}</option>
+                                            ))}
+                                </select>
+                            </td>
                             <td className="px-0 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white"> 
                                 <select className='h-8 w-32 border border-gray-300 px-2 py-1 dark:border-gray-600 rounded-lg text-sm dark:bg-gray-700 dark:text-white' required>
                                             <option value="">None</option>
-                                            <option value="securityguard">OverTime</option>
-                                            <option value="manager">Regular</option>
+                                            <option value="securityguard">Securitiy Guard</option>
+                                            <option value="manager">Manager</option>
                                             <option value="finance">Finance</option>
+                                            <option value="receptionist">Receptionist</option>
                                             <option value="ceo">CEO</option>
-                                        </select></td>
+                                        </select>
+                            </td>
                             <td className="px-2 py-1 font-medium text-gray-900 whitespace-nowrap dark:text-white">Day</td>
                             <td className="px-2 py-1">
                                 <label className="inline-flex items-center cursor-pointer">

@@ -3,12 +3,12 @@ import Modalhire from './Waitingaccept';
 import Modaldetails from './Waitingdetails';
 
 const Modal = ({ show, onClose, employee }) => {
-  const [showModalaccept, setShowModal] = useState(false);
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isHiring, setIsHiring] = useState(false); 
    
   if (!show) return null;
  console.log(isHiring)
+ console.log(employee)
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -29,7 +29,6 @@ const Modal = ({ show, onClose, employee }) => {
           setSelectedEmployee={setSelectedEmployee}
           setIsHiring={setIsHiring}
         />
-
       )}
     </div>
   );

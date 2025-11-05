@@ -17,10 +17,22 @@ import Dressstock from '../Content/Dressstock/Dressstock';
 import EmployeeWarningPage from '../Content/Warningform';
 import HolidayFormPage from '../Content/Holiday';
 import Waitingform from '../Content/Waitingform';
-import Invoice from '../Content/Invoice';
 import PerformanceandEval from '../Content/PerformanceandEval';
 import Documents from '../Content/Documents';
 import Incident from '../Content/Incidents';
+import {Row,Col, Container} from 'react-bootstrap';
+import InvoiceSystem from '../Content/Payout/invoice';
+import ExpenseTracker from '../Content/ExpenseTracking';
+import FinancialDashboard from '../Content/FinancialDashboard';
+import SalarySchedule from '../Content/Salaryschedulemanagement';
+import TaxDeductions from '../Content/Tax_deduction';
+import CommissionBonus from '../Content/Comission';
+import StaffList from '../Content/Staff/Stafflist';
+import RecruitmentModule from '../Content/Recruitmentmodule';
+import ShiftScheduling from '../Content/ShiftScheduling';
+import EmployeeProfileDashboard from '../Content/EmployeeProfile';
+import TrainingCertDashboard from '../Content/TrainingTrack';
+import PerformanceAnalytics from '../Content/Performanceanalyt';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -31,6 +43,10 @@ const Dashboard = ({loginuser}) => {
       
       case "dashboard":
         return <DashboardMain />;
+      case "TrainingCert":
+        return <TrainingCertDashboard />;
+      case "PerformanceAnalytics":
+        return <PerformanceAnalytics />;
       case "Salary":
         return <SalaryRec />;
       case "AdvancePayment":
@@ -49,7 +65,7 @@ const Dashboard = ({loginuser}) => {
         return <Managestaff />; 
       case "manageclient":
           return <Manageclient />; 
-      case "attendance":
+      case "Attendance":
           return <Attendance />;   
       case "assigntask":
           return <AssignTask/>;
@@ -62,13 +78,32 @@ const Dashboard = ({loginuser}) => {
       case "waitingpage":
         return <Waitingform />;
       case "invoice":
-        return <Invoice/>;
+        return <InvoiceSystem/>;
       case "performanceandeval":
         return <PerformanceandEval />;
+      
       case "documents":
         return <Documents />;
       case "incidents":
         return <Incident />;
+      case "expensetracker":
+        return <ExpenseTracker />;
+      case "FinancialDashboard":
+        return <FinancialDashboard />;
+      case "SalarySchedule":
+        return <SalarySchedule />;
+      case "TaxManagement":
+        return <TaxDeductions />;
+      case "CommissionBonus":
+        return <CommissionBonus />;
+      case "StaffList":
+        return <StaffList />;
+      case "Recruitment":
+        return <RecruitmentModule />;
+      case "ShiftScheduling":
+        return <ShiftScheduling />;
+      case "EmployeeProfile":
+        return <EmployeeProfileDashboard />;
       default:
         return <DashboardMain />;
     }
@@ -76,20 +111,19 @@ const Dashboard = ({loginuser}) => {
   
  
   return (
-    <div className='w-full h-screen pb-4 bg-[#F5F6FA] dark:bg-[#131518] grid grid-rows-[10%_90%] overflow-hidden'>
-      <div className='w-full pb-1 overflow-hidden'>
-        <Navbar loginuser={loginuser} />
-      </div>
-
-      <div className='grid grid-cols-12 w-full '>
-        <div className='w-54 col-span-2 h-auto overflow-y-scroll no-scrollbar'>
-          <SidebarCom setPage={setPage} />
-        </div>
-        <div className='col-span-10 h-auto overflow-y-scroll no-scrollbar px-1'>
+    <Container fluid className='w-full h-full  bg-gray-100 dark:bg-[#18191A] overflow-hidden no-scrollbar p-0 m-0'>
+      <Row xs={12} md={12} lg={12}>
+              <Navbar loginuser={loginuser} />
+      </Row>
+      <Row xs={12} md={12} lg={12} className='mt-2 h-[92vh] overflow-hidden no-scrollbar'>
+        <Col xs={12} md={4} lg={2}>
+          <SidebarCom setPage={setPage} userRole={loginuser.role} />
+        </Col>
+        <Col xs={12} md={8} lg={10}>
           {renderpage()}
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
