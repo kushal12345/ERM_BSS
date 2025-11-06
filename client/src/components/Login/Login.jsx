@@ -55,10 +55,10 @@ const Login = ({setloginUser}) => {
   return (
     <div className="w-screen h-screen flex items-center">
       <form className="w-[30%] mx-auto">
-        <div className="mb-5">
+        <div className="mb-2">
           <span className="font-bold text-xl dark:text-white">Login to Continue</span>
         </div>
-        <div className="mb-5">
+        <div className="mb-2">
           <label htmlFor="uname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Username
           </label>
@@ -74,7 +74,7 @@ const Login = ({setloginUser}) => {
             value={user.uname}
           />
         </div>
-        <div className="mb-5">
+        <div className="mb-3">
           <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
             Your password
           </label>
@@ -90,7 +90,7 @@ const Login = ({setloginUser}) => {
             value={user.password}
           />
         </div>
-        <div className="flex items-start mb-5">
+        <div className="flex items-start mb-3">
           <div className="flex items-center h-5">
             <input
               id="remember"

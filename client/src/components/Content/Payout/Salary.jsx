@@ -102,7 +102,7 @@ const SalaryRec = () => {
   );
 
   return (
-    <div className="w-full h-screen p-4 overflow-y-scroll bg-white border border-gray-200 dark:bg-[#1b1e23] shadow-xl rounded-xl no-scrollbar">
+    <div className="w-full h-[90vh] overflow-y-auto no-scrollbar p-4 bg-white border border-gray-200 dark:bg-[#1b1e23] shadow-xl rounded-xl">
       <h1 className="text-2xl font-bold mb-2 dark:text-white">Salary Payout</h1>
       <hr className="mb-4 border-gray-300 dark:border-gray-700" />
 

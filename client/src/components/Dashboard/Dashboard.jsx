@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import Navbar from '../Navbar/navbar';
-import { SidebarCom } from '../Sidebar/Sidebar';
+import SidebarCom from '../Sidebar/Sidebar';
 import DashboardMain from '../Content/Content';
 import NewAdmission from '../Content/NewAdmission';
 import Ssf from '../Content/Ssf';
@@ -12,7 +12,7 @@ import AssignTask from '../Content/AssignTask/AssignTask';
 import Advancepayment from '../Content/Payout/Advancepayment';
 import PaymentHistory from '../Content/Payout/PaymentHistory';
 import PayrollReports from '../Content/Payout/PayrollReports';
-import Message from '../Content/message';
+import MessagePage from '../Content/message';
 import Dressstock from '../Content/Dressstock/Dressstock';
 import EmployeeWarningPage from '../Content/Warningform';
 import HolidayFormPage from '../Content/Holiday';
@@ -33,6 +33,15 @@ import ShiftScheduling from '../Content/ShiftScheduling';
 import EmployeeProfileDashboard from '../Content/EmployeeProfile';
 import TrainingCertDashboard from '../Content/TrainingTrack';
 import PerformanceAnalytics from '../Content/Performanceanalyt';
+import VisitorsLog from '../Content/Visitorslog';
+import NotificationCenter from '../Content/Notificationcenter';
+import DutyLogbook from '../Content/dutylogbook';
+import MobileAttendance from '../Content/mobileattendance';
+import InventoryManagement from '../Content/Inventrymgmt';
+import ClientCommunicationLog from '../Content/clientcommlog';
+import ReportGenerator from '../Content/reportgen';
+import AlertSystem from '../Content/alertsys';
+import CustomFullCalendar from '../Content/calenderview';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -45,6 +54,24 @@ const Dashboard = ({loginuser}) => {
         return <DashboardMain />;
       case "TrainingCert":
         return <TrainingCertDashboard />;
+      case "CalendarView":
+        return <CustomFullCalendar />;
+      case "InventoryManagement":
+        return <InventoryManagement />;
+      case "AlertSystem":
+        return <AlertSystem />;
+      case "ReportGenerator":
+        return <ReportGenerator />;
+      case "ClientCommLog":
+        return <ClientCommunicationLog />;
+      case "MobileAttendance":
+        return <MobileAttendance />;
+      case "NotificationCenter":
+        return <NotificationCenter />;
+      case "DutyLogbook":
+        return <DutyLogbook />;
+      case "VisitorsLog":
+        return <VisitorsLog />;
       case "PerformanceAnalytics":
         return <PerformanceAnalytics />;
       case "Salary":
@@ -58,7 +85,7 @@ const Dashboard = ({loginuser}) => {
       case "PayrollReport":
         return <PayrollReports />;
       case "message":
-        return <Message />;
+        return <MessagePage />;
       case "ssf":
         return <Ssf />;
       case "managestaff":
@@ -81,7 +108,6 @@ const Dashboard = ({loginuser}) => {
         return <InvoiceSystem/>;
       case "performanceandeval":
         return <PerformanceandEval />;
-      
       case "documents":
         return <Documents />;
       case "incidents":
@@ -116,7 +142,7 @@ const Dashboard = ({loginuser}) => {
               <Navbar loginuser={loginuser} />
       </Row>
       <Row xs={12} md={12} lg={12} className='mt-2 h-[92vh] overflow-hidden no-scrollbar'>
-        <Col xs={12} md={4} lg={2}>
+        <Col xs={12} md={4} lg={2} >
           <SidebarCom setPage={setPage} userRole={loginuser.role} />
         </Col>
         <Col xs={12} md={8} lg={10}>
