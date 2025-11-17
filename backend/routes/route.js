@@ -3,6 +3,7 @@ import { Login } from '../controllers/LoginController.js';
 import { VerifyToken } from '../middleware/VerifyToken.js';
 import { ProtectRoute } from '../controllers/ProtectRoute.js';
 import { NewAdmission } from '../controllers/NewAdmission.js';
+import { createVisitor } from '../controllers/VisitorsController.js';
 import upload from '../Utils/multer.js';
 import { Fetchallstaff } from '../controllers/FetchCcontroller.js';
 import { NewClient } from '../controllers/NewClient.js';
@@ -12,6 +13,7 @@ import { FetchallHired } from '../controllers/FetchCcontroller.js';
 import { TerminateEmp } from '../controllers/TerminateEmp.js';
 import { FetchTerminated } from '../controllers/FetchTerminated.js';
 import { FetchSearchedstaff } from '../controllers/FetchCcontroller.js';
+import { Fetchallvisitors,updateVisitor } from '../controllers/FetchCcontroller.js';
 
 const router = express.Router();
 
@@ -55,6 +57,26 @@ router.route("/newadmission").post(upload.fields([
     { name: 'termsaggree' }
 ]), NewAdmission).get((req, res, next) => { res.send("New Admission") });
 
+router.route("/visitor").post(upload.fields([
+    { name: 'Fname' },
+    { name: 'Refname' },
+    { name: 'TempAddress' },
+    { name: 'PermAddress' },
+    { name: 'Category' },
+    { name: 'PastExperience' },
+    { name: 'EducationQualification' },
+    { name: 'Height' },
+    { name: 'Weight' },
+    { name: 'TrainingFee' },
+    { name: 'Voucher' },
+    { name: 'PhysicalTest' },
+    { name: 'Age' },
+    { name: 'Phone' }  
+]), createVisitor).get((req, res, next) => { res.send("Visitor") });
+
+router.route("/visitor/:id").put(upload.fields([{name:'Voucher'}]), updateVisitor);
+ 
+
 router.route("/hire").post(upload.fields([
     { name: "employeeId" },
     { name: "post" },
@@ -89,6 +111,7 @@ router.route("/client/add").post(upload.fields([
 ]),NewClient).get((req,res,next) => {res.send("New Client")});
 
 router.route(`/fetchallstaff/:data`).get(Fetchallstaff);
+router.route(`/fetchallvisitors`).get(Fetchallvisitors);
 router.route(`/FetchSearchedstaff/:data`).get(FetchSearchedstaff);
 router.route(`/employees/:data`).post(TerminateEmp);
 

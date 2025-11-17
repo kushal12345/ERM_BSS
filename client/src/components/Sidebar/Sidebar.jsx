@@ -162,6 +162,7 @@ export default function SidebarCom({ setPage, userRole = "admin" }) {
                   ["Advance Payment", "AdvancePayment"],
                   ["Payroll Reports", "PayrollReport"],
                   ["Invoice", "invoice"],
+                  ["Training Fees💲", "TrainingFeeColl"],
                   ["Expense Tracking 💳", "expensetracker"],
                 ].map(([label, page]) => (
                   <SubItem key={page} label={label} page={page} />

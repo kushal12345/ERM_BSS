@@ -42,6 +42,7 @@ import ClientCommunicationLog from '../Content/clientcommlog';
 import ReportGenerator from '../Content/reportgen';
 import AlertSystem from '../Content/alertsys';
 import CustomFullCalendar from '../Content/calenderview';
+import TrainingFeeTab from '../Content/TrainingFeetab';
 
 const Dashboard = ({loginuser}) => {
   const [page, setPage] = useState(null);
@@ -56,6 +57,8 @@ const Dashboard = ({loginuser}) => {
         return <TrainingCertDashboard />;
       case "CalendarView":
         return <CustomFullCalendar />;
+      case "TrainingFeeColl":
+        return <TrainingFeeTab />;
       case "InventoryManagement":
         return <InventoryManagement />;
       case "AlertSystem":
