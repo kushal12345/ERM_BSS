@@ -12,12 +12,16 @@
     }
   },
   "rules": {
+    "no-unused-vars": "warn",
+    "eqeqeq": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react/jsx-no-target-blank": "warn",
+    "jsx-a11y/anchor-is-valid": "warn",
     "tailwindcss/classnames-order": "off",
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/enforces-shorthand": "off",
     "tailwindcss/migration-from-tailwind-2": "warn",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-no-target-blank": "warn",
-    "jsx-a11y/anchor-is-valid": "warn"
+    "tailwindcss/no-unnecessary-arbitrary-value": "warn"
   }
 }
