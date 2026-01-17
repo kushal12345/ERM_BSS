@@ -96,12 +96,12 @@ const Setting = ({ showModal, onClose }) => {
   const renderRoleUser = () => {
     return (
       <div>
-        <h5 className="font-semibold ml-2 mb-3 text-gray-900 dark:text-white">
+        <h5 className="mb-3 ml-2 font-semibold text-gray-900 dark:text-white">
           Choose Your {selectedRole}
         </h5>
 
-        <div className="w-full flex items-center justify-center">
-          <p className="px-2 font-bold w-full">
+        <div className="flex w-full items-center justify-center">
+          <p className="w-full px-2 font-bold">
             {currentroleuser ? (
               currentroleuser
             ) : (
@@ -121,14 +121,14 @@ const Setting = ({ showModal, onClose }) => {
                     placeholder="Search employee..."
                     value={searchTerm}
                     onChange={handleSearch}
-                    className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 
-                               focus:ring-2 focus:ring-blue-500 focus:outline-none
-                               dark:bg-[#1a1d21] dark:text-white dark:border-gray-600"
+                    className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-3 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500
+                               dark:border-gray-600 dark:bg-[#1a1d21] dark:text-white"
                   />
                 </div>
             </div>
         {!currentroleuser && searched && searched.length > 0 && (
-          <ListGroup className="max-h-48 overflow-y-auto mt-0">
+          <ListGroup className="mt-0 max-h-48 overflow-y-auto">
             {searched.map((emp) => (  
               <ListGroup.Item
                 key={emp && emp._id ? emp._id : null}
@@ -145,16 +145,16 @@ const Setting = ({ showModal, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-5xl">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="w-full max-w-5xl rounded-lg bg-white p-6 shadow-lg dark:bg-gray-700">
         {/* Header */}
-        <div className="flex justify-between items-center border-b pb-2 mb-4">
+        <div className="mb-4 flex items-center justify-between border-b pb-2">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
             Settings
           </h3>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-800 dark:hover:text-white text-xl"
+            className="text-xl text-gray-500 hover:text-gray-800 dark:hover:text-white"
           >
             ✖
           </button>
@@ -165,7 +165,7 @@ const Setting = ({ showModal, onClose }) => {
           <Row>
             {/* Left Sidebar - Roles */}
             <Col xs={12} md={3} className="border-r">
-              <h6 className="text-gray-700 dark:text-gray-200 mb-3">Roles</h6>
+              <h6 className="mb-3 text-gray-700 dark:text-gray-200">Roles</h6>
               <ListGroup>
                 {roles.map((role) => (
                   <ListGroup.Item
@@ -182,7 +182,7 @@ const Setting = ({ showModal, onClose }) => {
 
             {/* Right Content */}
             <Col xs={12} md={9} className="pl-4">
-              <h5 className="font-semibold mb-3 text-gray-900 dark:text-white">
+              <h5 className="mb-3 font-semibold text-gray-900 dark:text-white">
                 {selectedRole} Permissions
               </h5>
               <Row>

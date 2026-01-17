@@ -122,16 +122,16 @@ const ManageClient = () => {
   };
 
   return (
-    <div className="p-4 bg-gray-50 dark:bg-[#212528] min-h-screen">
+    <div className="min-h-screen bg-gray-50 p-4 dark:bg-[#212528]">
       {/* Tabs */}
-      <div className="flex gap-2 mb-4">
+      <div className="mb-4 flex gap-2">
         {["AddClient", "ListClients"].map((tab) => (
           <button
             key={tab}
-            className={`px-4 py-2 rounded ${
+            className={`rounded px-4 py-2 ${
               activeTab === tab
                 ? "bg-blue-600 text-white"
-                : "bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                : "bg-white text-gray-900 dark:bg-gray-800 dark:text-white"
             }`}
             onClick={() => setActiveTab(tab)}
           >
@@ -142,19 +142,19 @@ const ManageClient = () => {
 
       {/* Add Client Form */}
       {activeTab === "AddClient" && (
-        <div className="bg-white dark:bg-gray-800 p-4 rounded shadow">
-          <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+        <div className="rounded bg-white p-4 shadow dark:bg-gray-800">
+          <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
             Add Client
           </h2>
           <form className="space-y-4" onSubmit={handleAddClient}>
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex flex-wrap gap-4">
               <input
                 type="text"
                 name="Oname"
                 value={newClient.Oname}
                 onChange={handleInputChange}
                 placeholder="Office Name"
-                className="p-2 border rounded w-80"
+                className="w-80 rounded border p-2"
                 required
               />
               <input
@@ -163,7 +163,7 @@ const ManageClient = () => {
                 value={newClient.Cname}
                 onChange={handleInputChange}
                 placeholder="Client Name"
-                className="p-2 border rounded w-80"
+                className="w-80 rounded border p-2"
                 required
               />
               <input
@@ -172,7 +172,7 @@ const ManageClient = () => {
                 value={newClient.OAdd}
                 onChange={handleInputChange}
                 placeholder="Office Address"
-                className="p-2 border rounded w-80"
+                className="w-80 rounded border p-2"
               />
               <input
                 type="number"
@@ -180,18 +180,18 @@ const ManageClient = () => {
                 value={newClient.Pno}
                 onChange={handleInputChange}
                 placeholder="Pan Number"
-                className="p-2 border rounded w-80"
+                className="w-80 rounded border p-2"
               />
             </div>
 
-            <div className="flex gap-4 flex-wrap">
+            <div className="flex flex-wrap gap-4">
               <input
                 type="number"
                 name="NSG"
                 value={newClient.NSG}
                 onChange={handleInputChange}
                 placeholder="No of Security Guards"
-                className="p-2 border rounded w-60"
+                className="w-60 rounded border p-2"
               />
               <input
                 type="number"
@@ -199,7 +199,7 @@ const ManageClient = () => {
                 value={newClient.NCleaner}
                 onChange={handleInputChange}
                 placeholder="No of Cleaners"
-                className="p-2 border rounded w-60"
+                className="w-60 rounded border p-2"
               />
               <input
                 type="number"
@@ -207,7 +207,7 @@ const ManageClient = () => {
                 value={newClient.NBouncer}
                 onChange={handleInputChange}
                 placeholder="No of Bouncers"
-                className="p-2 border rounded w-60"
+                className="w-60 rounded border p-2"
               />
               <input
                 type="number"
@@ -215,7 +215,7 @@ const ManageClient = () => {
                 value={newClient.NEP}
                 onChange={handleInputChange}
                 placeholder="No of EPs"
-                className="p-2 border rounded w-60"
+                className="w-60 rounded border p-2"
               />
               <input
                 type="number"
@@ -223,11 +223,11 @@ const ManageClient = () => {
                 value={newClient.NES}
                 onChange={handleInputChange}
                 placeholder="No of Event Security"
-                className="p-2 border rounded w-60"
+                className="w-60 rounded border p-2"
               />
             </div>
 
-            <div className="flex gap-4 flex-wrap items-center">
+            <div className="flex flex-wrap items-center gap-4">
               <div>
                 <label className="text-gray-900 dark:text-white">
                   Contract Start Date
@@ -258,12 +258,12 @@ const ManageClient = () => {
                   type="file"
                   name="file_contract"
                   onChange={handleInputChange}
-                  className="p-2 border rounded"
+                  className="rounded border p-2"
                 />
               </div>
             </div>
 
-            <div className="flex gap-4 items-center">
+            <div className="flex items-center gap-4">
               <label className="text-gray-900 dark:text-white">
                 <input
                   type="checkbox"
@@ -288,7 +288,7 @@ const ManageClient = () => {
 
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-600 text-white rounded"
+              className="rounded bg-blue-600 px-4 py-2 text-white"
             >
               Add Client
             </button>
@@ -299,7 +299,7 @@ const ManageClient = () => {
       {/* List Clients */}
       {activeTab === "ListClients" && (
         <div>
-          <h2 className="text-xl font-bold mb-2 text-gray-900 dark:text-white">
+          <h2 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
             List of Clients
           </h2>
           <input
@@ -307,13 +307,13 @@ const ManageClient = () => {
             placeholder="Search Clients..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="mb-4 p-2 border rounded w-full max-w-md"
+            className="mb-4 w-full max-w-md rounded border p-2"
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredClients.map((c) => (
               <div
                 key={c.id}
-                className="bg-white dark:bg-gray-800 p-4 rounded shadow"
+                className="rounded bg-white p-4 shadow dark:bg-gray-800"
               >
                 <h3 className="font-bold text-gray-900 dark:text-white">
                   {c.Cname}
@@ -321,7 +321,7 @@ const ManageClient = () => {
                 <p className="text-gray-700 dark:text-gray-300">
                   Office: {c.Oname} ({c.OAdd})
                 </p>
-                <div className="text-gray-700 dark:text-gray-300 space-y-1">
+                <div className="space-y-1 text-gray-700 dark:text-gray-300">
                   {c.NSG > 0 && (
                     <p>
                       Security Guard ({c.NSG}): {renderStaffNames(1, "NSG")}

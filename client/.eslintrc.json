@@ -10,5 +10,9 @@
       "callees": ["twMerge", "createTheme"],
       "classNameRegex": "^(className(Name)|theme)?$"
     }
+  },
+  "rules": {
+    "tailwindcss/classnames-order": "off",
+    "tailwindcss/no-custom-classname": "warn"
   }
 }

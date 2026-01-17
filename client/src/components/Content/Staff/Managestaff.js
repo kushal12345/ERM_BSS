@@ -37,7 +37,7 @@ const ManageStaff = () => {
 
   if (!data && active === "Active") {
     return (
-      <div className="w-full h-screen flex justify-center items-center">
+      <div className="flex h-screen w-full items-center justify-center">
         <div className="text-2xl font-bold text-gray-800 dark:text-white">
           Loading...
         </div>
@@ -51,27 +51,27 @@ const ManageStaff = () => {
       <hr className="my-2 border-gray-300 dark:border-gray-700" />
 
       {/* Search */}
-      <div className="max-w-md my-4">
+      <div className="my-4 max-w-md">
         <div className="relative">
           <input
             type="search"
             placeholder="Search Staffs"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="block w-full px-4 py-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+            className="block w-full rounded-lg border border-gray-300 bg-gray-50 px-4 py-2 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder:text-gray-400"
           />
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="inline-flex rounded-md shadow-xs mb-4" role="group">
+      <div className="mb-4 inline-flex rounded-md shadow-sm" role="group">
         <button
           type="button"
           onClick={() => setActive("Active")}
-          className={`px-4 py-2 text-sm font-medium border rounded-l-lg ${
+          className={`rounded-l-lg border px-4 py-2 text-sm font-medium ${
             active === "Active"
               ? "bg-blue-600 text-white"
-              : "bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-200 dark:border-gray-700"
+              : "border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           }`}
         >
           Active Staffs
@@ -79,10 +79,10 @@ const ManageStaff = () => {
         <button
           type="button"
           onClick={() => setActive("Terminated")}
-          className={`px-4 py-2 text-sm font-medium border rounded-r-lg ${
+          className={`rounded-r-lg border px-4 py-2 text-sm font-medium ${
             active === "Terminated"
               ? "bg-blue-600 text-white"
-              : "bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-200 dark:border-gray-700"
+              : "border-gray-200 bg-white text-gray-900 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
           }`}
         >
           Terminated Staffs
@@ -92,8 +92,8 @@ const ManageStaff = () => {
       {/* Active Staffs */}
       {active === "Active" && (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th className="px-6 py-3">Full Name</th>
                 <th className="px-6 py-3">Phone No</th>
@@ -130,7 +130,7 @@ const ManageStaff = () => {
                   <td className="px-6 py-4">
                     {d.empID?.[0]?.Fname && (
                       <button
-                        className="text-blue-600 dark:text-blue-500 hover:underline"
+                        className="text-blue-600 hover:underline dark:text-blue-500"
                         onClick={() => {
                           setSelectedEmployee(d.empID[0]);
                           setShowModal(true);
@@ -143,7 +143,7 @@ const ManageStaff = () => {
                   <td className="px-6 py-4">
                     {d.empID?.[0]?.Fname && (
                       <button
-                        className="text-red-600 dark:text-red-500 hover:underline"
+                        className="text-red-600 hover:underline dark:text-red-500"
                         onClick={() => terminateEmp(d.empID[0]._id, setData)}
                       >
                         Terminate
@@ -154,7 +154,7 @@ const ManageStaff = () => {
               ))}
               {filteredData.length === 0 && (
                 <tr>
-                  <td colSpan={7} className="text-center py-4 dark:text-gray-300">
+                  <td colSpan={7} className="py-4 text-center dark:text-gray-300">
                     No staff found.
                   </td>
                 </tr>
@@ -167,8 +167,8 @@ const ManageStaff = () => {
       {/* Terminated Staffs */}
       {active === "Terminated" && (
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
-          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <table className="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+            <thead className="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
               <tr>
                 <th className="px-6 py-3">Full Name</th>
                 <th className="px-6 py-3">Phone No</th>
@@ -182,7 +182,7 @@ const ManageStaff = () => {
               {filteredData.map((d, i) => (
                 <tr
                   key={i}
-                  className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700"
+                  className="border-b odd:bg-white even:bg-gray-50 dark:border-gray-700 odd:dark:bg-gray-900 even:dark:bg-gray-800"
                 >
                   <td className="px-6 py-4 dark:text-white">
                     {`${d.Fname || ""} ${d.Mname || ""} ${d.Lname || ""}`}
@@ -195,7 +195,7 @@ const ManageStaff = () => {
                   </td>
                   <td className="px-6 py-4">
                     <button
-                      className="text-red-600 dark:text-red-500 hover:underline"
+                      className="text-red-600 hover:underline dark:text-red-500"
                       onClick={() => {
                         setSelectedEmployee(d);
                         setShowModal(true);
@@ -208,7 +208,7 @@ const ManageStaff = () => {
               ))}
               {filteredData.length === 0 && (
                 <tr>
-                  <td colSpan={6} className="text-center py-4 dark:text-gray-300">
+                  <td colSpan={6} className="py-4 text-center dark:text-gray-300">
                     No staff found.
                   </td>
                 </tr>

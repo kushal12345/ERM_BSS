@@ -21,14 +21,14 @@ function App() {
   }, [cookies]);
 
   return (
-   <main className="min-h-[100dvh] w-full bg-gray-100 dark:bg-gray-800 relative">
+   <main className="relative min-h-dvh w-full bg-gray-100 dark:bg-gray-800">
   {/* Dark mode toggle */}
-  <div className="fixed top-4 right-4 z-50">
+  <div className="fixed right-4 top-4 z-50">
     <DarkThemeToggle />
   </div>
 
   {/* App Routes */}
-  <div className="min-h-[100dvh] w-full">
+  <div className="min-h-dvh w-full">
     <Routes>
       {/* Protected dashboard */}
       <Route

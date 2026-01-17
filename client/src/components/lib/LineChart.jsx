@@ -16,16 +16,6 @@ const data = [
   { name: "Sun", clicks: 700 },
 ];
 
-const datay = [
-  { name: "Mon", clicks: 400 },
-  { name: "Tue", clicks: 300 },
-  { name: "Wed", clicks: 500 },
-  { name: "Thu", clicks: 200 },
-  { name: "Fri", clicks: 600 },
-  { name: "Sat", clicks: 450 },
-  { name: "Sun", clicks: 700 },
-];
-
 export default function ClicksLineChart() {
   return (
     <div className="w-full h-[260px] mt-4">
@@ -38,6 +28,7 @@ export default function ClicksLineChart() {
             dataKey="clicks"
             strokeWidth={2}
             dot={false}
+            className="stroke-2"
           />
         </LineChart>
       </ResponsiveContainer>
