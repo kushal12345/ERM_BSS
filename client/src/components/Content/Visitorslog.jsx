@@ -521,7 +521,7 @@ const hire = async (visitor) => {
 
       {/* MODAL */}
       {modalOpen && selectedVisitor && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white dark:bg-[#212528] rounded-xl p-6 max-w-md w-full shadow-xl space-y-4">
             <h3 className="text-xl font-semibold dark:text-white">Hire Visitor</h3>
 
@@ -574,7 +574,7 @@ const hire = async (visitor) => {
 
       {
         trainingModalOpen && selectedVisitor && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <TrainingFeeForm visitor={selectedVisitor} onClose={() => setTrainingModalOpen(false)} />
         </div>
         )

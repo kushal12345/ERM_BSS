@@ -23,7 +23,7 @@ const Modaldetails = ({ show, onClose, employee, setSelectedEmployee ,setIsHirin
 
   employee = data ? data[0] : employee; // Fallback to employee prop if data is not available
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white dark:bg-gray-700 p-6 rounded-lg shadow-lg w-full max-w-md">
         <div className="flex justify-between items-center border-b pb-2 mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Employee Details</h3>

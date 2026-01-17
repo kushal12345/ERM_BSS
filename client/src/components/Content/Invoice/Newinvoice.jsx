@@ -193,7 +193,7 @@ const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
       <div className="bg-white dark:bg-gray-800 w-[700px] p-6 rounded-lg shadow-lg relative">
         <button
           className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-black"
