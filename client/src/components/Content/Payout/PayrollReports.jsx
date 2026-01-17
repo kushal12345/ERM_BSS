@@ -1,120 +1,196 @@
 import React, { useState, useMemo } from "react";
+import {
+  ChevronDown,
+  BarChart3,
+  Home,
+  DollarSign,
+  Users,
+  FileText,
+  Settings,
+  Download,
+  Filter,
+  TrendingUp,
+  Clock,
+  AlertCircle,
+} from "lucide-react";
 
 const PayrollReports = () => {
-  const [selectedStaff, setSelectedStaff] = useState("");
+  const [selectedStaff, setSelectedStaff] = useState("Select Staff");
+  const [staffOpen, setStaffOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("summary");
 
-  const staffList = ["Kushal", "Kritan", "Prem"];
-
-  const reportData = [
+  const payrollData = [
     {
       year: 2080,
       month: "Chaitra",
-      regularHours: "12 Hours",
+      regularHours: "12h",
       post: "Nurse City",
-      amount: 18000,
-      overtimeHours: "3 Hours (Gyan Sanskar)",
-      overtimeAmount: 1500,
-      ssf: 2930,
+      amount: "Rs. 18,000",
+      overtime: "3h",
+      otAmount: "Rs. 1,500",
+      status: "Paid",
     },
     {
       year: 2081,
       month: "Baisakh",
-      regularHours: "12 Hours",
+      regularHours: "12h",
       post: "Nurse City",
-      amount: 18000,
-      overtimeHours: "3 Hours (Gyan Sanskar)",
-      overtimeAmount: 1500,
-      ssf: 2930,
+      amount: "Rs. 18,000",
+      overtime: "3h",
+      otAmount: "Rs. 1,500",
+      status: "Pending",
     },
   ];
 
-  const filteredReports = useMemo(
-    () =>
-      selectedStaff
-        ? reportData.filter((report) => report.staff === selectedStaff)
-        : reportData,
-    [selectedStaff]
-  );
+  const staffMembers = ["Kushal", "Anita", "Ramesh", "Sita"];
 
   return (
-    <div className="w-full h-screen overflow-y-scroll bg-[#EAEBF4] dark:bg-[#1b1e23] no-scrollbar p-4">
-      <h1 className="text-center text-2xl font-bold mb-4 dark:text-white">
-        Payroll Annual Summary Reports
-      </h1>
-      <hr className="border-b-1 my-5 mx-3 border-blue-400" />
+    <div className="flex-1 flex flex-col bg-slate-50">
+      <main className="flex-1 overflow-auto p-4 sm:p-6">
+        <div className="max-w-7xl mx-auto space-y-4">
 
-      {/* Filter Form */}
-      <div className="flex flex-wrap items-center gap-4 mb-6">
-        <label className="text-lg font-semibold dark:text-white">Name:</label>
-        <select
-          value={selectedStaff}
-          onChange={(e) => setSelectedStaff(e.target.value)}
-          className="border border-gray-300 rounded-md px-3 py-2 dark:bg-gray-700 dark:text-white dark:border-gray-600"
-        >
-          <option value="">Select Staff</option>
-          {staffList.map((staff, idx) => (
-            <option key={idx} value={staff}>
-              {staff}
-            </option>
-          ))}
-        </select>
+          {/* HEADER */}
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-800">
+            Payroll Management
+          </h2>
 
-        <button
-          type="button"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition"
-        >
-          Generate Report
-        </button>
-      </div>
+          {/* CONTROLS */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:items-end">
 
-      {/* Staff Info */}
-      <div className="flex flex-wrap justify-between mb-4 text-gray-800 dark:text-white">
-        <span className="font-bold">Name: Kushal Bahadur Luitel</span>
-        <span className="font-bold">Joined Date: 2080-Chaitra-1</span>
-        <span className="font-bold">Terminated: Not Yet</span>
-      </div>
+            {/* STAFF SELECT */}
+            <div className="w-full sm:max-w-xs">
+              <label className="text-sm font-semibold text-slate-600 mb-1 block">
+                Staff Member
+              </label>
+              <div className="relative">
+                <button
+                  onClick={() => setStaffOpen(!staffOpen)}
+                  className="w-full bg-white border border-slate-300 rounded-md px-3 py-2 flex items-center justify-between text-sm"
+                >
+                  <span className="text-slate-700">{selectedStaff}</span>
+                  <ChevronDown
+                    size={16}
+                    className={`transition ${staffOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
 
-      {/* Table */}
-      <div className="relative border border-gray-300 dark:border-gray-700 overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-300">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-[#202528] dark:text-white">
-            <tr>
-              <th className="px-6 py-3">Year</th>
-              <th className="px-6 py-3">Month</th>
-              <th className="px-6 py-3">Regular Hours</th>
-              <th className="px-6 py-3">Post</th>
-              <th className="px-6 py-3">Amount</th>
-              <th className="px-6 py-3">Overtime (POST)</th>
-              <th className="px-6 py-3">Overtime Amount</th>
-              <th className="px-6 py-3">SSF</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredReports.map((row, idx) => (
-              <tr
-                key={idx}
-                className="bg-white dark:bg-[#202528] border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+                {staffOpen && (
+                  <div className="absolute z-20 w-full bg-white border rounded-md mt-1 shadow">
+                    {staffMembers.map((s) => (
+                      <button
+                        key={s}
+                        onClick={() => {
+                          setSelectedStaff(s);
+                          setStaffOpen(false);
+                        }}
+                        className="block w-full text-left px-3 py-2 text-sm hover:bg-slate-100"
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* ACTIONS */}
+            <div className="flex gap-2">
+              <button className="px-3 py-2 bg-white border rounded-md text-sm flex items-center gap-1">
+                <Filter size={14} /> Filter
+              </button>
+              <button className="px-3 py-2 bg-emerald-600 text-white rounded-md text-sm flex items-center gap-1">
+                <Download size={14} /> Export
+              </button>
+            </div>
+          </div>
+
+          {/* TABS */}
+          <div className="flex gap-4 border-b text-sm">
+            {["summary", "details", "analytics"].map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`pb-2 ${
+                  activeTab === tab
+                    ? "border-b-2 border-emerald-600 text-emerald-600"
+                    : "text-slate-500"
+                }`}
               >
-                <td className="px-6 py-4 font-medium dark:text-white">{row.year}</td>
-                <td className="px-6 py-4">{row.month}</td>
-                <td className="px-6 py-4">{row.regularHours}</td>
-                <td className="px-6 py-4">{row.post}</td>
-                <td className="px-6 py-4">{row.amount}</td>
-                <td className="px-6 py-4">{row.overtimeHours}</td>
-                <td className="px-6 py-4">{row.overtimeAmount}</td>
-                <td className="px-6 py-4">{row.ssf}</td>
-              </tr>
+                {tab.toUpperCase()}
+              </button>
             ))}
-            {filteredReports.length === 0 && (
-              <tr>
-                <td colSpan={8} className="text-center py-4 dark:text-white">
-                  No reports found.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+          </div>
+
+          {/* SUMMARY */}
+          {activeTab === "summary" && (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              {[
+                { label: "Salary", value: "Rs. 36,000", icon: DollarSign },
+                { label: "OT Hours", value: "6h", icon: Clock },
+                { label: "SSF", value: "Rs. 5,860", icon: TrendingUp },
+                { label: "Net", value: "Rs. 41,860", icon: AlertCircle },
+              ].map((c, i) => (
+                <div
+                  key={i}
+                  className="bg-white border rounded-lg p-3 flex justify-between items-center"
+                >
+                  <div>
+                    <p className="text-xs text-slate-500">{c.label}</p>
+                    <p className="text-lg font-bold text-slate-800">{c.value}</p>
+                  </div>
+                  <c.icon className="text-emerald-600" size={20} />
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* TABLE */}
+          <div className="bg-white border rounded-lg overflow-x-auto">
+            <div className="px-4 py-2 border-b font-semibold text-slate-700">
+              Payment History
+            </div>
+            <table className="w-full text-sm">
+              <thead className="bg-slate-100">
+                <tr>
+                  {["Year", "Month", "Hours", "Post", "Amount", "OT", "Status"].map(
+                    (h) => (
+                      <th key={h} className="px-3 py-2 text-left font-semibold">
+                        {h}
+                      </th>
+                    )
+                  )}
+                </tr>
+              </thead>
+              <tbody>
+                {payrollData.map((r, i) => (
+                  <tr key={i} className="border-t hover:bg-slate-50">
+                    <td className="px-3 py-2">{r.year}</td>
+                    <td className="px-3 py-2">{r.month}</td>
+                    <td className="px-3 py-2">{r.regularHours}</td>
+                    <td className="px-3 py-2">{r.post}</td>
+                    <td className="px-3 py-2 font-semibold text-emerald-600">
+                      {r.amount}
+                    </td>
+                    <td className="px-3 py-2">{r.overtime}</td>
+                    <td className="px-3 py-2">
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          r.status === "Paid"
+                            ? "bg-emerald-100 text-emerald-700"
+                            : "bg-amber-100 text-amber-700"
+                        }`}
+                      >
+                        {r.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </main>
     </div>
   );
 };

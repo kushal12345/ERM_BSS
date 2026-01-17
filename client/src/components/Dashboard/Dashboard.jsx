@@ -74,7 +74,7 @@ const Dashboard = ({loginuser}) => {
       case "DutyLogbook":
         return <DutyLogbook />;
       case "VisitorsLog":
-        return <VisitorsLog />;
+        return <VisitorsLog setPage={setPage} />;
       case "PerformanceAnalytics":
         return <PerformanceAnalytics />;
       case "Salary":
@@ -140,19 +140,41 @@ const Dashboard = ({loginuser}) => {
   
  
   return (
-    <Container fluid className='w-full h-full  bg-gray-100 dark:bg-[#18191A] overflow-hidden no-scrollbar p-0 m-0'>
-      <Row xs={12} md={12} lg={12}>
-              <Navbar loginuser={loginuser} />
-      </Row>
-      <Row xs={12} md={12} lg={12} className='mt-2 h-[92vh] overflow-hidden no-scrollbar'>
-        <Col xs={12} md={4} lg={2} >
-          <SidebarCom setPage={setPage} userRole={loginuser.role} />
-        </Col>
-        <Col xs={12} md={8} lg={10}>
-          {renderpage()}
-        </Col>
-      </Row>
-    </Container>
+    <Container fluid className="min-h-[100dvh] bg-gray-200 dark:bg-[#18191A] p-0 m-0 overflow-hidden">
+
+  {/* Navbar */}
+  <Row className="g-0 mb-3">
+    <Col xs={12}>
+      <Navbar loginuser={loginuser} />
+    </Col>
+  </Row>
+
+  {/* Body */}
+  <Row className="g-4 flex-nowrap" style={{ height: "calc(100vh - 64px)" }}>
+    
+    {/* Sidebar */}
+    <Col
+      xs={12}
+      md={4}
+      lg={2}
+      className="h-full overflow-y-auto border-r border-gray-200 dark:border-gray-700"
+    >
+      <SidebarCom setPage={setPage} userRole={loginuser.role} />
+    </Col>
+
+    {/* Main Content */}
+    <Col
+      xs={12}
+      md={8}
+      lg={10}
+      className="h-full overflow-y-auto pl-3"
+    >
+      {renderpage()}
+    </Col>
+
+  </Row>
+</Container>
+
   );
 }
 

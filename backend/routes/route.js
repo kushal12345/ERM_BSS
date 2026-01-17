@@ -19,43 +19,14 @@ const router = express.Router();
 
 router.route("/login").post(Login).get((req,res,next) => {res.send("Hello World")});
 router.route("/register").post();
-router.route("/newadmission").post(upload.fields([
-    { name: 'Fname' },
-    { name: 'Mname' },
-    { name: 'Lname' },
-    { name: 'email' },
-    { name: 'phno' },
-    { name: 'bg' },
-    { name: 'dob' },
-    { name: 'gender' },
-    { name: 'TempState' },
-    { name: 'TempDist' },
-    { name: 'TempMun' },
-    { name: 'TempAddress' },
-    { name: 'TempTol' },
-    { name: 'PerState' },
-    { name: 'PerDist' },
-    { name: 'PerMun' },
-    { name: 'PerAddress' },
-    { name: 'PerTol' },
-    { name: 'doctype' },
-    { name: 'docno' },
-    { name: 'IssueDistrict' },
-    { name: 'IssueDate' },
-    { name: 'docfile' },
-    { name: 'marrital' },
-    { name: 'Huswifname' },
-    { name: 'famphno' },
-    { name: 'famdocfile' },
-    { name: 'mothdocfile' },
-    { name: 'fathdocfile' },
-    { name: 'grandfathdocfile' },
-    { name: 'mothname' },
-    { name: 'fathname' },
-    { name: 'grandfathname' },
-    { name: 'edu' },
-    { name: 'termsaggree' }
-]), NewAdmission).get((req, res, next) => { res.send("New Admission") });
+router.route("/newadmission").post( upload.fields([
+    { name: "image", maxCount: 1 },
+    { name: "docfile", maxCount: 1 },
+    { name: "famdocfile", maxCount: 1 },
+    { name: "mothdocfile", maxCount: 1 },
+    { name: "fathdocfile", maxCount: 1 },
+    { name: "grandfathdocfile", maxCount: 1 },
+  ]), NewAdmission).get((req, res, next) => { res.send("New Admission") });
 
 router.route("/visitor").post(upload.fields([
     { name: 'Fname' },

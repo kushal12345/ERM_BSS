@@ -4,15 +4,17 @@ import api from "../../utils/api";
 import { fetchVisitors } from "../Fetch/Fetchvisitors";
 import TrainingFeeForm from "./Trainingfeecoll";
 import { FaEdit } from "react-icons/fa";
+import { useContext } from "react";
+import AuthContext from "../Hooks/Context/AuthContext";
 
-
-const VisitorsLog = () => {
+const VisitorsLog = ({setPage}) => {
   const initialForm = {
     Fname: "",
     Refname: "",
     TempAddress: "",
     PermAddress: "",
     Category: "Civil",
+    Gender: "Male",
     PastExperience: "",
     EducationQualification: "",
     Height: "",
@@ -32,6 +34,7 @@ const VisitorsLog = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [trainingModalOpen, setTrainingModalOpen] = useState(false);
   const [selectedVisitor, setSelectedVisitor] = useState(null);
+  const { setvisittoadmiss } = useContext(AuthContext);
 
   useEffect(() => {
     fetchVisitors(setVisitors);
@@ -49,6 +52,10 @@ const VisitorsLog = () => {
       Category: e.target.value,
       PastExperience: "",
     }));
+  };
+
+  const handleGenderChange = (e) => {
+    setFormData((prev) => ({ ...prev, Gender: e.target.value }));
   };
 
   // Submit form
@@ -132,23 +139,32 @@ const VisitorsLog = () => {
       setStaffData(visitors);
     }, [visitors]);
   
-    console.log(staffData);
 
    // Filtered staff based on search
   const filteredStaff = staffData.filter((s) => {
   const term = searchTerm.toLowerCase();
-const createdDate = new Date(s.createdAt).toISOString().slice(0, 10);
+const createdDate = new Date(s.createdAt?s.createdAt:new Date()).toISOString().slice(0, 10);
 
   return (
-    s.Fname.toLowerCase().includes(term) ||
-    s.Category.toLowerCase().includes(term) ||
-    s.EducationQualification.toLowerCase().includes(term) ||
-    s.PhysicalTest.toLowerCase().includes(term) ||
-    s.TempAddress.toLowerCase().includes(term) ||     // location added
-    s.PermAddress.toLowerCase().includes(term)   ||
+    s.Fname && s.Fname.toLowerCase().includes(term) ||
+    s.Category && s.Category.toLowerCase().includes(term) ||
+    s.Gender && s.Gender.toLowerCase().includes(term) ||
+    s.EducationQualification && s.EducationQualification.toLowerCase().includes(term) ||
+    s.PhysicalTest && s.PhysicalTest.toLowerCase().includes(term) ||
+    s.TempAddress && s.TempAddress.toLowerCase().includes(term) ||     // location added
+    s.PermAddress && s.PermAddress.toLowerCase().includes(term)   ||
      createdDate.includes(term)     // location added
   );
 });
+
+const hire = async (visitor) => {
+    try {
+      setvisittoadmiss(visitor);
+      setPage("NewAdmission");
+    }catch (error) {
+      console.error("Error hiring visitor:", error);
+    }
+  };
 
    // Pagination logic
   const indexOfLast = currentPage * itemsPerPage;
@@ -276,6 +292,27 @@ const createdDate = new Date(s.createdAt).toISOString().slice(0, 10);
             </div>
           </div>
 
+          {/* Gender */}
+          <div className="flex flex-col">
+            <label className="font-semibold dark:text-white mb-1">
+              Gender <span className="text-red-600">*</span>
+            </label>
+            <div className="flex space-x-4 mt-1">
+              {["Male", "Female", "Other"].map((gender) => (
+                <label key={gender} className="flex items-center space-x-2 dark:text-white">
+                  <input
+                    type="radio"
+                    value={gender}
+                    required
+                    checked={formData.Gender === gender}
+                    onChange={handleGenderChange}
+                  />
+                  <span>{gender}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
           {/* Past Exp */}
           {formData.Category === "Civil" && (
             <div className="flex flex-col">
@@ -397,9 +434,10 @@ const createdDate = new Date(s.createdAt).toISOString().slice(0, 10);
               <tr>
                 <th className="px-2 py-2 text-left">Date</th>
                 <th className="px-2 py-2 text-left">Full Name</th>
+                <th className="px-2 py-2 text-left">Gender</th>
                 <th className="px-2 py-2 text-left">Category</th>
-                <th className="px-2 py-2 text-left">Temporary Address</th>
-                <th className="px-2 py-2 text-left">Permanent Address</th>
+                <th className="px-2 py-2 text-left">Temporary <br/> Address</th>
+                <th className="px-2 py-2 text-left">Permanent <br/> Address</th>
                 <th className="px-2 py-2 text-left">Physical Test</th>
                 <th className="px-2 py-2 text-left">Training Fee</th>
                 <th className={`px-2 py-2 text-left`}>Payment</th>
@@ -412,6 +450,7 @@ const createdDate = new Date(s.createdAt).toISOString().slice(0, 10);
                 <tr key={v._id} className="hover:bg-gray-50 dark:hover:bg-gray-700">
                   <td className="px-2 py-2">{new Date(v.createdAt).toLocaleDateString()}</td>
                   <td className="px-2 py-2">{v.Fname}</td>
+                  <td className="px-2 py-2">{v.Gender}</td>
                   <td className="px-2 py-2">{v.Category}</td>
                   <td className="px-2 py-2">{v.TempAddress}</td>
                   <td className="px-2 py-2">{v.PermAddress}</td>
@@ -433,7 +472,7 @@ const createdDate = new Date(s.createdAt).toISOString().slice(0, 10);
                   </td>
                   <td className="px-2 py-2">
                     <button
-                      onClick={()=>{if(v.VerificationStatus === 'Approved') alert('Now you can Hire Staff')}}
+                      onClick={()=>{if(v.VerificationStatus === 'Approved') hire(v)}}
                       className={`px-3 py-1 bg-gray-500 text-white rounded-lg  ${v.VerificationStatus === 'Approved' ? `bg-green-500 hover:bg-green-600` : v.VerificationStatus === 'Rejected' ? 'bg-red-500 disabled' : 'bg-yellow-400 disabled'}`}
                     >
                       {v.VerificationStatus === 'Approved' ? "Hire" : "Pending"}

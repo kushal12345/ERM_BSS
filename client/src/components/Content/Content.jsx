@@ -1,23 +1,25 @@
 import React from "react";
-import { BarChart3, Users, Briefcase, FileText, TrendingUp } from "lucide-react";
+import { Users, BanknoteArrowUp , BanknoteArrowDown,Siren } from "lucide-react";
+import { Card, CardDash } from "../../components/ui/card";
+import ColumnChart from "../lib/ColumnChart.jsx";
+import ClicksLineChart from "../lib/LineChart.jsx";
 
 const Dashboard = ({ userRole }) => {
   const renderDashboard = () => {
     switch (userRole) {
-      case "finance":
-        return <FinanceDashboard />;
-      case "hr":
-        return <HRDashboard />;
-      case "operations":
-        return <OperationsDashboard />;
+    
       case "admin":
       default:
         return <AdminDashboard />;
     }
   };
 
+ 
+
+  
+
   return (
-    <div className="p-6  w-full overflow-y-scroll no-scrollbar dark:bg-[#0f1114] bg-gray-50 h-[80%]">
+    <div className="p-6 h-full  w-full overflow-y-scroll no-scrollbar dark:bg-[#0f1114] bg-gray-50">
       {renderDashboard()}
     </div>
   );
@@ -26,119 +28,156 @@ const Dashboard = ({ userRole }) => {
 /* ------------------ ADMIN DASHBOARD ------------------ */
 const AdminDashboard = () => (
   <div>
-    <h1 className="text-2xl font-bold mb-6 dark:text-white">Admin Dashboard</h1>
+    <h1 className="text-2xl font-semibold mb-4 dark:text-white">Dashboard</h1>
 
-    {/* Summary Cards */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <Card title="Total Staff" value="245" color="blue" />
-      <Card title="Total Clients" value="38" color="green" />
-      <Card title="Monthly Revenue" value="Rs. 12,50,000" color="yellow" />
-      <Card title="Active Branches" value="4" color="purple" />
-    </div>
+   {/* SUMMARY CARDS */}
+         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+           {[
+             ["Total Staff", 300],
+             ["Total Income", `Rs. 1,20,000`],
+             ["Total Expenses", `Rs. 80,000`],
+             ["Emergency", "No Alerts"],
+           ].map(([t, v]) => (
+             <Card key={t}>
+               <CardDash className="p-2 grid grid-cols-3 gap-2">
+                  <div className="col-span-2">
+                    <p className=" m-0 p-0 text-muted-foreground text-xs">{t}</p>
+                    <p className="text-xl font-bold">{v}</p>
+                  </div>
+                  <div className="flex items-center justify-center p-2">
+                    {t === "Total Staff" && <Users className="h-8 w-8 text-blue-500" />}
+                    {t === "Total Income" && <BanknoteArrowUp className="h-8 w-8 text-green-500" />}
+                    {t === "Total Expenses" && <BanknoteArrowDown className="h-8 w-8 text-red-500" />}
+                    {t === "Emergency" && <Siren className="h-8 w-8 text-yellow-500" />}
+                  </div>
+                 
+               </CardDash>
+             </Card>
+           ))}
+         </div>
 
-    {/* Analytics & Reports */}
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="📊 Company Analytics Overview" />
-      <Placeholder title="🔐 User Role & Permission Control" />
-    </div>
+         {/*  CARDS */}
+         <div className="grid grid-cols-1 md:grid-cols-2 my-4 p-4 gap-4">
+             
+                  <div className="shadow-xl p-4">
+                    <p className=" m-0 p-0 text-muted-foreground font-bold text-lg">Monthly Staff Overview</p>
+                    
+                      <div class="max-w-sm w-full bg-neutral-primary-soft p-2 md:p-6">
+                        <div class="flex justify-between mb-1 border-b border-light">
+                          <div class="flex items-center">
+                            <div class="w-12 h-12 bg-neutral-primary-medium border border-default-medium flex items-center justify-center rounded-full me-3">
+                              <svg class="w-7 h-7 text-body" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/></svg>
+                            </div>
+                            <div>
+                              <h5 class="text-2xl m-0 font-semibold text-heading">3.4k</h5>
+                              <p class="text-sm text-body">Leads generated per week</p>
+                            </div>
+                          </div>
+                          <div>
+                            <span class="inline-flex items-center bg-success-soft border border-success-subtle text-fg-success-strong text-xs font-medium px-1.5 py-0.5 rounded">
+                              <svg class="w-4 h-4 me-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"/></svg>
+                              42.5%
+                            </span>
+                          </div>
+                        </div>
 
-    {/* System Section */}
-    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="🗄️ Audit Log / Activity Tracking" />
-      <Placeholder title="📦 Backup & Data Export" />
-    </div>
+                        <div class="grid grid-cols-2">
+                          <dl class="flex items-center ">
+                              <dt class="text-body text-sm font-normal me-1">Money spent:</dt>
+                              <dt class="text-heading  text-sm font-semibold">$3,232</dt>
+                          </dl>
+                          <dl class="flex items-center justify-end">
+                              <dt class="text-body text-sm font-normal me-1">Conversion:</dt>
+                              <dt class="text-heading text-sm font-semibold">1.2%</dt>
+                          </dl>
+                        </div>
+                        <ColumnChart />
+                        <div class="grid grid-cols-1 items-center border-light border-t justify-between">
+                          <div class="flex justify-between items-center pt-4 md:pt-6">
+                            <button id="dropdownLastDaysButton" data-dropdown-toggle="LastDaysdropdown" data-dropdown-placement="bottom" class="text-sm font-medium text-body hover:text-heading text-center inline-flex items-center" type="button">
+                                Last 7 days
+                                <svg class="w-4 h-4 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/></svg>
+                            </button>
+                            <div id="LastDaysdropdown" class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
+                                <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownLastDaysButton">
+                                  <li>
+                                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Yesterday</a>
+                                  </li>
+                                  <li>
+                                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Today</a>
+                                  </li>
+                                  <li>
+                                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 7 days</a>
+                                  </li>
+                                  <li>
+                                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 30 days</a>
+                                  </li>
+                                  <li>
+                                    <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 90 days</a>
+                                  </li>
+                                </ul>
+                            </div>
+                            <a href="#" class="inline-flex items-center text-fg-brand bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
+                              Leads Report
+                              <svg class="w-4 h-4 ms-1.5 -me-0.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+
+                  </div>
+                  
+                  <div className="shadow-xl p-4">
+                    <p className=" m-0 p-0 text-muted-foreground font-bold text-lg">Monthly Staff Overview</p>
+
+                  <div class="max-w-sm w-full bg-neutral-primary-soft p-4 md:p-6">
+                    <div class="flex justify-between items-start">
+                      <div>
+                        <h5 class="text-2xl font-semibold text-heading">32.4k</h5>
+                        <p class="text-body">Users this week</p>
+                      </div>
+                      <div class="flex items-center px-2.5 py-0.5 font-medium text-fg-success text-center">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v13m0-13 4 4m-4-4-4 4"/></svg>
+                        12%
+                      </div>
+                    </div>
+                    <ClicksLineChart/>
+                    <div class="grid grid-cols-1 items-center border-light border-t justify-between">
+                      <div class="flex justify-between items-center pt-4 md:pt-6">
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown" data-dropdown-placement="bottom" class="text-sm font-medium text-body hover:text-heading text-center inline-flex items-center" type="button">
+                            Last 7 days
+                            <svg class="w-4 h-4 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/></svg>
+                        </button>
+                        <div id="lastDaysdropdown" class="z-10 hidden bg-neutral-primary-medium border border-default-medium rounded-base shadow-lg w-44">
+                            <ul class="p-2 text-sm text-body font-medium" aria-labelledby="dropdownDefaultButton">
+                              <li>
+                                <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Yesterday</a>
+                              </li>
+                              <li>
+                                <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Today</a>
+                              </li>
+                              <li>
+                                <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 7 days</a>
+                              </li>
+                              <li>
+                                <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 30 days</a>
+                              </li>
+                              <li>
+                                <a href="#" class="inline-flex items-center w-full p-2 hover:bg-neutral-tertiary-medium hover:text-heading rounded">Last 90 days</a>
+                              </li>
+                            </ul>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-fg-brand bg-transparent box-border border border-transparent hover:bg-neutral-secondary-medium focus:ring-4 focus:ring-neutral-tertiary font-medium leading-5 rounded-base text-sm px-3 py-2 focus:outline-none">
+                          Users Report
+                          <svg class="w-4 h-4 ms-1.5 -me-0.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+
+
+         </div>
   </div>
 );
-
-/* ------------------ FINANCE DASHBOARD ------------------ */
-const FinanceDashboard = () => (
-  <div>
-    <h1 className="text-2xl font-bold mb-6 dark:text-white">Accounts / Finance Dashboard</h1>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-      <Card title="Total Payouts" value="Rs. 3,50,000" color="green" />
-      <Card title="Pending Invoices" value="Rs. 1,20,000" color="yellow" />
-      <Card title="Total Expenses" value="Rs. 80,000" color="red" />
-    </div>
-
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="📈 Financial Trends (Bar Chart)" />
-      <Placeholder title="💳 Expense Tracker Summary" />
-    </div>
-
-    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="📅 Salary Schedule Overview" />
-      <Placeholder title="🧾 Tax & Deductions Dashboard" />
-    </div>
-  </div>
-);
-
-/* ------------------ HR DASHBOARD ------------------ */
-const HRDashboard = () => (
-  <div>
-    <h1 className="text-2xl font-bold mb-6 dark:text-white">Human Resource Dashboard</h1>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <Card title="Total Staffs" value="245" color="blue" />
-      <Card title="On Leave" value="12" color="yellow" />
-      <Card title="Open Positions" value="5" color="purple" />
-      <Card title="Training Sessions" value="3 Active" color="green" />
-    </div>
-
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="📁 Employee Profile Overview" />
-      <Placeholder title="⏰ Shift Schedule Summary" />
-    </div>
-
-    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="🏅 Training & Certification Tracker" />
-      <Placeholder title="📈 Performance Analytics" />
-    </div>
-  </div>
-);
-
-/* ------------------ OPERATIONS DASHBOARD ------------------ */
-const OperationsDashboard = () => (
-  <div>
-    <h1 className="text-2xl font-bold mb-6 dark:text-white">Reception / Operations Dashboard</h1>
-
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-      <Card title="Active Clients" value="32" color="green" />
-      <Card title="Pending Tasks" value="6" color="red" />
-      <Card title="New Admissions" value="4" color="blue" />
-      <Card title="Notifications" value="8 Unread" color="yellow" />
-    </div>
-
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="🧾 Visitor Log / Gate Entry Record" />
-      <Placeholder title="🕒 Duty Logbook Summary" />
-    </div>
-
-    <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <Placeholder title="🧥 Inventory & Dress Stock" />
-      <Placeholder title="📞 Client Communication Log" />
-    </div>
-  </div>
-);
-
-/* ------------------ REUSABLE COMPONENTS ------------------ */
-const Card = ({ title, value, color }) => (
-  <div
-    className={`p-5 rounded-xl shadow-sm border dark:border-gray-700 bg-white dark:bg-[#1c1f24] flex flex-col justify-between`}
-  >
-    <div>
-      <h3 className={`font-semibold text-${color}-700 dark:text-${color}-400`}>
-        {title}
-      </h3>
-      <p className="text-2xl font-bold mt-2">{value}</p>
-    </div>
-  </div>
-);
-
-const Placeholder = ({ title }) => (
-  <div className="p-6 bg-white dark:bg-[#1c1f24] border dark:border-gray-700 rounded-xl h-60 flex items-center justify-center text-gray-400 dark:text-gray-500">
-    {title}
-  </div>
-);
-
 export default Dashboard;

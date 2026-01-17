@@ -6,6 +6,7 @@ const visitorsSchema = new mongoose.Schema({
     TempAddress: { type: String, required: true },
     PermAddress: { type: String, required: true },
     Category: { type: String, required: true },
+    Gender: { type: String, required: true },
     PastExperience: { type: String},
     EducationQualification: { type: String },
     Height: { type: Number, required: false },

@@ -3,8 +3,10 @@ import AuthContext from "./AuthContext";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 
+
 const AuthProvider = ({children}) => {
     const [cookies,setCookies,removeCookie] = useCookies();
+    const [visittoadmiss, setvisittoadmiss] = useState(null);
     const Navigate = useNavigate();
 
     const login = (user) => {
@@ -19,14 +21,13 @@ const AuthProvider = ({children}) => {
     }
 
 
-
-
-
     return (
         <AuthContext.Provider value={{
            login,
            logout,
-           cookies
+           cookies,
+           visittoadmiss,
+           setvisittoadmiss
         }}>
             {children}
         </AuthContext.Provider>

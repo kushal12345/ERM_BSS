@@ -1,137 +1,239 @@
 import React, { useState, useMemo } from "react";
-import { Search } from "lucide-react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "../../../components/ui/card";
+import { Button } from "../../../components/ui/button";
+import { Input } from "../../../components/ui/input";
 
-const Advancepayment = () => {
-  const [active, setActive] = useState("bs");
-  const [searchTerm, setSearchTerm] = useState("");
-
-  const [isCheckedBS, setIsCheckedBS] = useState(Array(3).fill(false));
-  const [isCheckedAD, setIsCheckedAD] = useState(Array(3).fill(false));
-
-  const staffListBS = [
-    { name: "Jane Cooper", phone: "9841449298", duty: "Samakhusi, KTM", advance: 15000, receivedBy: "Prem Luitel" },
-    { name: "Ramesh Shrestha", phone: "9808123456", duty: "Baneshwor, KTM", advance: 12000, receivedBy: "Sita Gurung" },
-    { name: "Anita Gurung", phone: "9811122334", duty: "Maharajgunj, KTM", advance: 10000, receivedBy: "Kiran Basnet" },
-  ];
-
-  const staffListAD = [
-    { name: "Hari Sharma", phone: "9841223344", duty: "Lazimpat, KTM", advance: 20000, receivedBy: "Sita Karki" },
-    { name: "Sita Karki", phone: "9811772233", duty: "New Road, KTM", advance: 18000, receivedBy: "Hari Sharma" },
-  ];
-
-  const handleCheckboxClick = (index, type) => {
-    if (type === "bs") {
-      setIsCheckedBS(prev => {
-        const copy = [...prev];
-        copy[index] = !copy[index];
-        return copy;
-      });
-    } else {
-      setIsCheckedAD(prev => {
-        const copy = [...prev];
-        copy[index] = !copy[index];
-        return copy;
-      });
-    }
-  };
-
-  const filteredBS = useMemo(() => staffListBS.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
-  const filteredAD = useMemo(() => staffListAD.filter(s => s.name.toLowerCase().includes(searchTerm.toLowerCase())), [searchTerm]);
-
-  const renderTable = (list, checkedState, type) => (
-    <div className="w-full relative overflow-x-auto shadow-md sm:rounded-lg">
-      <table className="w-full text-sm text-gray-500 dark:text-gray-400">
-        <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
-          <tr className="text-center">
-            <th className="px-3 py-3">Staff Name</th>
-            <th className="px-3 py-3">Phone</th>
-            <th className="px-3 py-3">Duty Location</th>
-            <th className="px-3 py-3">Advance Payment</th>
-            <th className="px-3 py-3">Received By</th>
-            <th className="px-3 py-3">Voucher</th>
-            <th className="px-3 py-3">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((s, index) => (
-            <tr key={index} className="text-center border-b dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 transition">
-              <td className="px-3 py-4 font-medium text-gray-900 dark:text-white">{s.name}</td>
-              <td className="px-3 py-4">{s.phone}</td>
-              <td className="px-3 py-4">{s.duty}</td>
-              <td className="px-3 py-4">{s.advance}</td>
-              <td className="px-3 py-4">{s.receivedBy}</td>
-              <td className="px-3 py-4">
-                <button className="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-3 py-1.5 transition">
-                  Upload
-                </button>
-              </td>
-              <td className="px-3 py-4">
-                <label className="inline-flex items-center cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={checkedState[index]}
-                    onChange={() => handleCheckboxClick(index, type)}
-                    className="sr-only peer"
-                  />
-                  <div className="relative w-11 h-6 bg-gray-300 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:h-5 after:w-5 after:rounded-full after:transition-all peer-checked:bg-green-500"></div>
-                </label>
-                <span className={`ml-2 text-xs font-semibold ${checkedState[index] ? "text-green-500" : "text-red-500"}`}>
-                  {checkedState[index] ? "Paid" : "Unpaid"}
-                </span>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  );
-
-  return (
-    <div className="w-full h-screen p-4 overflow-y-scroll bg-white border border-gray-200 dark:bg-[#1b1e23] shadow-xl rounded-xl no-scrollbar">
-      <h1 className="text-2xl font-bold mb-2 dark:text-white">Advance Payout</h1>
-      <hr className="mb-4 border-gray-300 dark:border-gray-700" />
-
-      {/* Toggle Buttons */}
-      <div className="flex gap-2 mb-4 justify-center">
-        <button
-          className={`px-4 py-2 text-sm font-medium rounded-md ${active === "bs" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"}`}
-          onClick={() => setActive("bs")}
-        >
-          B.S
-        </button>
-        <button
-          className={`px-4 py-2 text-sm font-medium rounded-md ${active === "ad" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-200"}`}
-          onClick={() => setActive("ad")}
-        >
-          A.D
-        </button>
-      </div>
-
-      {/* Search */}
-      <div className="max-w-md mx-auto mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-3 text-gray-400" size={18} />
-          <input
-            type="text"
-            placeholder="Search staff..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full pl-10 pr-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none dark:bg-gray-700 dark:text-white dark:border-gray-600"
-          />
-        </div>
-      </div>
-
-      {/* Notes */}
-      <div className="text-center mb-4 text-gray-700 dark:text-gray-300">
-        <p className="font-semibold">{active === "bs" ? "Nepali Date - Month: Falgun" : "English Date - Month: March"}</p>
-      </div>
-
-      {/* Table */}
-      {active === "bs"
-        ? renderTable(filteredBS, isCheckedBS, "bs")
-        : renderTable(filteredAD, isCheckedAD, "ad")}
-    </div>
-  );
+/* ===================== STAFF ===================== */
+const staffData = {
+  bs: [
+    { name: "Ramesh Shrestha", phone: "9841449298", duty: "Samakhusi, KTM" },
+    { name: "Anita Gurung", phone: "9808123456", duty: "Baneshwor, KTM" },
+    { name: "Kiran Basnet", phone: "9811122334", duty: "Maharajgunj, KTM" },
+  ],
+  ad: [
+    { name: "Hari Sharma", phone: "9841223344", duty: "Lazimpat, KTM" },
+    { name: "Sita Karki", phone: "9811772233", duty: "New Road, KTM" },
+  ],
 };
 
-export default Advancepayment;
+/* ===================== DEMO PAYMENTS ===================== */
+const demoPayments = [
+  {
+    date: "2026-01-03",
+    month: "Falgun",
+    employee: "Ramesh Shrestha",
+    amount: 5000,
+    reason: "Emergency medical expense",
+  },
+  {
+    date: "2026-01-07",
+    month: "Falgun",
+    employee: "Ramesh Shrestha",
+    amount: 3000,
+    reason: "Travel advance",
+  },
+  {
+    date: "2026-01-12",
+    month: "Falgun",
+    employee: "Anita Gurung",
+    amount: 4500,
+    reason: "Family function",
+  },
+  {
+    date: "2026-01-18",
+    month: "Falgun",
+    employee: "Kiran Basnet",
+    amount: 2000,
+    reason: "Food & daily expenses",
+  },
+  {
+    date: "2026-01-22",
+    month: "Falgun",
+    employee: "Ramesh Shrestha",
+    amount: 6000,
+    reason: "House rent support",
+  },
+];
+
+export default function AdvancePayment() {
+  const [active] = useState("bs");
+  const [selectedEmployee, setSelectedEmployee] = useState("");
+  const [amount, setAmount] = useState("");
+  const [reason, setReason] = useState("");
+  const [allPayments, setAllPayments] = useState(demoPayments);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const staffList = staffData[active];
+
+  /* ===================== AUTOCOMPLETE ===================== */
+  const filteredEmployees = useMemo(() => {
+    if (!selectedEmployee) return [];
+    return staffList.filter((s) =>
+      s.name.toLowerCase().includes(selectedEmployee.toLowerCase())
+    );
+  }, [selectedEmployee, staffList]);
+
+  /* ===================== EMPLOYEE HISTORY ===================== */
+  const employeeHistory = useMemo(() => {
+    if (!selectedEmployee) return [];
+    return allPayments.filter((p) => p.employee === selectedEmployee);
+  }, [selectedEmployee, allPayments]);
+
+  /* ===================== SUBMIT ===================== */
+  const handleSubmit = () => {
+    if (!selectedEmployee || !amount || !reason) {
+      alert("Please fill all fields");
+      return;
+    }
+
+    const newPayment = {
+      month: active === "bs" ? "Falgun" : "March",
+      employee: selectedEmployee,
+      amount: Number(amount),
+      reason,
+      date: new Date().toLocaleDateString(),
+    };
+
+    setAllPayments([newPayment, ...allPayments]);
+    setAmount("");
+    setReason("");
+    setShowSuggestions(false);
+  };
+
+  return (
+    <div className="p-6 h-[90vh] overflow-y-auto space-y-6 bg-white dark:bg-[#0f1115] rounded-xl">
+
+      {/* ===================== HEADER ===================== */}
+      <div>
+        <h1 className="text-2xl font-bold">Advanced Payment</h1>
+        <p className="text-muted-foreground font-semibold">
+          Month: {active === "bs" ? "Falgun" : "March"}
+        </p>
+      </div>
+
+      {/* ===================== FORM + HISTORY ===================== */}
+      <div className="grid grid-cols-5 gap-4">
+
+        {/* FORM */}
+        <motion.div className="col-span-3" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <Card>
+            <CardContent className="p-4 grid grid-cols-2 gap-2">
+
+              {/* EMPLOYEE */}
+              <div className="relative col-span-2">
+                <p className="text-sm font-semibold mb-1">Select Employee</p>
+                <Input
+                  placeholder="Type employee name"
+                  value={selectedEmployee}
+                  onChange={(e) => {
+                    setSelectedEmployee(e.target.value);
+                    setShowSuggestions(true);
+                  }}
+                  onFocus={() => setShowSuggestions(true)}
+                  onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
+                />
+
+                {showSuggestions && filteredEmployees.length > 0 && (
+                  <div className="absolute z-10 w-full bg-white dark:bg-gray-800 border rounded-md mt-1 max-h-40 overflow-y-auto shadow">
+                    {filteredEmployees.map((e, i) => (
+                      <div
+                        key={i}
+                        onMouseDown={() => {
+                          setSelectedEmployee(e.name);
+                          setShowSuggestions(false);
+                        }}
+                        className="px-3 py-2 cursor-pointer hover:bg-blue-100 dark:hover:bg-gray-700"
+                      >
+                        {e.name} ({e.phone})
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              {/* AMOUNT */}
+              <div>
+                <p className="text-sm font-semibold mb-1">Amount</p>
+                <Input
+                  type="number"
+                  placeholder="Enter amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+
+              {/* REASON */}
+              <div className="col-span-2">
+                <p className="text-sm font-semibold mb-1">Reason</p>
+                <Input
+                  placeholder="Reason for advance"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                />
+              </div>
+
+              <div className="col-span-2 flex justify-end">
+                <Button onClick={handleSubmit}>Submit Advanced Payment</Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* MONTH HISTORY */}
+        <motion.div className="col-span-2" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+          <Card>
+            <CardContent className="p-4">
+              <p className="text-sm font-semibold mb-3">This Month History</p>
+
+              {employeeHistory.length === 0 ? (
+                <p className="text-sm text-gray-500">No advanced payments yet</p>
+              ) : (
+                <div className="max-h-52 overflow-y-auto space-y-2">
+                  {employeeHistory.map((p, i) => (
+                    <div key={i} className="border rounded-lg p-2 bg-gray-50">
+                      <div className="flex justify-between text-xs text-gray-600">
+                        <span>{p.date}</span>
+                        <span className="font-semibold text-green-600">
+                          Rs. {p.amount}
+                        </span>
+                      </div>
+                      <p className="text-sm">{p.reason}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+
+      {/* ===================== ALL PAYMENTS ===================== */}
+      <Card>
+        <CardContent className="p-3">
+          <p className="font-semibold mb-2">All Advanced Payments</p>
+          <table className="w-full text-sm border">
+            <thead className="bg-gray-100">
+              <tr>
+                <th className="border px-2 py-1">Date</th>
+                <th className="border px-2 py-1">Employee</th>
+                <th className="border px-2 py-1">Amount</th>
+                <th className="border px-2 py-1">Reason</th>
+              </tr>
+            </thead>
+            <tbody>
+              {allPayments.map((p, i) => (
+                <tr key={i} className="hover:bg-gray-50">
+                  <td className="border px-2 py-1">{p.date}</td>
+                  <td className="border px-2 py-1">{p.employee}</td>
+                  <td className="border px-2 py-1">Rs. {p.amount}</td>
+                  <td className="border px-2 py-1">{p.reason}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}

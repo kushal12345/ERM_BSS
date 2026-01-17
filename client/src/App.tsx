@@ -21,29 +21,32 @@ function App() {
   }, [cookies]);
 
   return (
-    <main className="flex flex-col h-dvh w-screen overflow-hidden items-center justify-center gap-2 dark:bg-gray-800">
-      <div className="flex-grow w-full overflow-hidden">
-        <Routes>
-          {/* Always define dashboard route */}
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectRoutes>
-                <Dashboard loginuser={loginuser || cookies.user} />
-              </ProtectRoutes>
-            }
-          />
-          
-          {/* Public routes */}
-          <Route path="/" element={<Login setloginUser={setloginUser} />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
+   <main className="min-h-[100dvh] w-full bg-gray-100 dark:bg-gray-800 relative">
+  {/* Dark mode toggle */}
+  <div className="fixed top-4 right-4 z-50">
+    <DarkThemeToggle />
+  </div>
 
-      <div className="absolute top-8 right-4 z-50">
-        <DarkThemeToggle />
-      </div>
-    </main>
+  {/* App Routes */}
+  <div className="min-h-[100dvh] w-full">
+    <Routes>
+      {/* Protected dashboard */}
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectRoutes>
+            <Dashboard loginuser={loginuser || cookies.user} />
+          </ProtectRoutes>
+        }
+      />
+
+      {/* Public routes */}
+      <Route path="/" element={<Login setloginUser={setloginUser} />} />
+      <Route path="/register" element={<Register />} />
+    </Routes>
+  </div>
+</main>
+
   );
 }
 

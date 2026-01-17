@@ -16,7 +16,7 @@ export const TerminateEmp = async (req, res) => {
 
         // Create terminate record
         const terminateData = new Terminate({
-            empID: response._id,
+            _id: response._id,
             Fname: response.Fname,
             Mname: response.Mname,
             Lname: response.Lname,

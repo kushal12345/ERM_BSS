@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 
 const newAdmissionSchema = new mongoose.Schema({
+    VisitorId: { type: mongoose.Schema.Types.ObjectId, ref: "Visitors", default: null },
     Fname: { type: String, required: true },
     Mname: { type: String, required: false },
     Lname: { type: String, required: true },

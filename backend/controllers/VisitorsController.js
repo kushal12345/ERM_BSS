@@ -8,6 +8,7 @@ export const createVisitor = async (req, res) => {
             TempAddress: req.body.TempAddress,
             PermAddress: req.body.PermAddress,
             Category: req.body.Category,
+            Gender: req.body.Gender,            
             PastExperience: req.body.PastExperience,
             EducationQualification: req.body.EducationQualification,
             Height: req.body.Height,
