@@ -14,7 +14,7 @@ const Dashboard = ({ userRole }) => {
   };
 
   return (
-    <div className="h-full w-full p-6 overflow-y-scroll no-scrollbar dark:bg-[#0f1114] bg-gray-50">
+    <div className="h-full w-full p-6 overflow-y-scroll no-scrollbar dark:bg-[#0f1114] bg-gray-100">
       {renderDashboard()}
     </div>
   );
@@ -34,10 +34,10 @@ const AdminDashboard = () => (
         ["Emergency", "No Alerts", Siren, "text-yellow-600", "bg-yellow-100"],
       ].map(([title, value, Icon, iconColor, iconBg]) => (
         <Card key={title}>
-          <CardDash className="grid grid-cols-3 gap-2 p-2">
-            <div className="col-span-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">{title}</p>
-              <p className="text-xl font-bold text-gray-900">{value}</p>
+          <CardDash className="grid grid-cols-3 dark:text-white dark:bg-gray-800 dark:rounded-xl gap-2 p-2">
+            <div className="col-span-2 ">
+              <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-white dark:bg-gray-800">{title}</p>
+              <p className="text-xl font-bold dark:text-white dark:bg-gray-800 text-gray-900">{value}</p>
             </div>
             <div className="flex items-center justify-center p-2 rounded-full">
               <Icon className={`size-8 ${iconColor}`} />
@@ -50,7 +50,7 @@ const AdminDashboard = () => (
     {/* CHART CARDS */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 my-4 p-0">
       {/* Leads Overview Card */}
-      <div className="shadow-xl p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
+      <div className="shadow-xl p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
         <div className="flex justify-between items-center mb-4 border-b border-gray-300 pb-2">
           <div className="flex items-center gap-3">
             <div className="size-12 bg-blue-100 flex items-center justify-center rounded-full">
@@ -73,7 +73,7 @@ const AdminDashboard = () => (
         <ColumnChart />
 
         <div className="flex justify-between items-center pt-4">
-          <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+          <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1 dark:text-white dark:bg-gray-800">
             Last 7 days <ChevronDown className="size-4" />
           </button>
 
@@ -87,7 +87,7 @@ const AdminDashboard = () => (
       </div>
 
       {/* Users Overview Card */}
-      <div className="shadow-xl p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
+      <div className="shadow-xl p-4 rounded-lg bg-gray-50 dark:bg-gray-800">
         <div className="flex justify-between items-center mb-4">
           <div>
             <h5 className="text-xl font-semibold text-gray-900 dark:text-white">32.4k</h5>
@@ -104,7 +104,7 @@ const AdminDashboard = () => (
         <ClicksLineChart />
 
         <div className="flex justify-between items-center pt-4">
-          <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1">
+          <button className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1 dark:text-white dark:bg-gray-800">
             Last 7 days <ChevronDown className="size-4" />
           </button>
 

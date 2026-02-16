@@ -21,31 +21,29 @@ function App() {
   }, [cookies]);
 
   return (
-   <main className="relative min-h-dvh w-full bg-gray-100 dark:bg-gray-800">
-  {/* Dark mode toggle */}
-  <div className="fixed right-4 top-4 z-50">
-    <DarkThemeToggle />
-  </div>
+    <main className="relative min-h-dvh w-full bg-gray-100 dark:bg-gray-800">
 
-  {/* App Routes */}
-  <div className="min-h-dvh w-full">
-    <Routes>
-      {/* Protected dashboard */}
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectRoutes>
-            <Dashboard loginuser={loginuser || cookies.user} />
-          </ProtectRoutes>
-        }
-      />
 
-      {/* Public routes */}
-      <Route path="/" element={<Login setloginUser={setloginUser} />} />
-      <Route path="/register" element={<Register />} />
-    </Routes>
-  </div>
-</main>
+
+      {/* App Routes */}
+      <div className="min-h-dvh w-full">
+        <Routes>
+          {/* Protected dashboard */}
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectRoutes>
+                <Dashboard loginuser={loginuser || cookies.user} />
+              </ProtectRoutes>
+            }
+          />
+
+          {/* Public routes */}
+          <Route path="/" element={<Login setloginUser={setloginUser} />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
+      </div>
+    </main>
 
   );
 }

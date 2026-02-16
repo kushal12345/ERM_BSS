@@ -95,106 +95,106 @@ const InvoiceSample = ({ showModal, onClose }) => {
     str +=
       n[5] != 0
         ? (str != "" ? "and " : "") +
-          (a[Number(n[5])] || b[n[5][0]] + " " + a[n[5][1]]) +
-          " Only"
+        (a[Number(n[5])] || b[n[5][0]] + " " + a[n[5][1]]) +
+        " Only"
         : "";
     return str;
   };
 
- const downloadInvoice = () => {
-  const doc = new jsPDF();
+  const downloadInvoice = () => {
+    const doc = new jsPDF();
 
-  // === HEADER ===
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(16);
-  doc.setTextColor(200, 30, 30);
-  doc.text(invoiceData.companyName, 105, 15, { align: "center" });
+    // === HEADER ===
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.setTextColor(200, 30, 30);
+    doc.text(invoiceData.companyName, 105, 15, { align: "center" });
 
-  doc.setFontSize(10);
-  doc.setTextColor(50);
-  doc.text(invoiceData.companyAddress, 105, 21, { align: "center" });
-  doc.text(invoiceData.companyPhone, 105, 26, { align: "center" });
-  doc.text(invoiceData.companyEmail, 105, 31, { align: "center" });
+    doc.setFontSize(10);
+    doc.setTextColor(50);
+    doc.text(invoiceData.companyAddress, 105, 21, { align: "center" });
+    doc.text(invoiceData.companyPhone, 105, 26, { align: "center" });
+    doc.text(invoiceData.companyEmail, 105, 31, { align: "center" });
 
-  // Divider line
-  doc.setDrawColor(150);
-  doc.setLineWidth(0.5);
-  doc.line(10, 34, 200, 34);
+    // Divider line
+    doc.setDrawColor(150);
+    doc.setLineWidth(0.5);
+    doc.line(10, 34, 200, 34);
 
-  // === BILL INFO ===
-  doc.setFont("helvetica", "normal");
-  doc.setFontSize(11);
-  doc.text(`Bill No: ${invoiceData.billNo}`, 10, 42);
-  doc.text(`Date: ${invoiceData.date}`, 160, 42);
-  doc.text(`Client Name: ${invoiceData.clientName}`, 10, 50);
-  doc.text(`Bill Period: ${invoiceData.month}`, 10, 56);
+    // === BILL INFO ===
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(11);
+    doc.text(`Bill No: ${invoiceData.billNo}`, 10, 42);
+    doc.text(`Date: ${invoiceData.date}`, 160, 42);
+    doc.text(`Client Name: ${invoiceData.clientName}`, 10, 50);
+    doc.text(`Bill Period: ${invoiceData.month}`, 10, 56);
 
-  // === TABLE ===
-  const tableColumn = ["S.No", "Particulars", "Attendance", "Amount (Rs)"];
-  const tableRows = invoiceData.items.map((item) => [
-    item.sno,
-    item.description,
-    item.attendance,
-    item.amount.toLocaleString(),
-  ]);
+    // === TABLE ===
+    const tableColumn = ["S.No", "Particulars", "Attendance", "Amount (Rs)"];
+    const tableRows = invoiceData.items.map((item) => [
+      item.sno,
+      item.description,
+      item.attendance,
+      item.amount.toLocaleString(),
+    ]);
 
-  const total = calculateTotal();
-  tableRows.push(["", "Total", "", total.toLocaleString()]);
-  tableRows.push(["", "Grand Total", "", total.toLocaleString()]);
+    const total = calculateTotal();
+    tableRows.push(["", "Total", "", total.toLocaleString()]);
+    tableRows.push(["", "Grand Total", "", total.toLocaleString()]);
 
- autoTable(doc, {
-  startY: 65,
-  head: [tableColumn],
-  body: tableRows,
-  theme: "grid",
-  styles: {
-    fontSize: 10,
-    cellPadding: 3,
-    halign: "center",
-    valign: "middle",
-    lineColor: [0, 0, 0],
-    lineWidth: 0.1,
-  },
-  columnStyles: {
-    1: { halign: "left" },
-    3: { halign: "right" },
-  },
-  headStyles: {
-    fillColor: [230, 230, 230],
-    textColor: 20,
-    fontStyle: "bold",
-  },
-  bodyStyles: {
-    textColor: [0, 0, 0],
-  },
-});
+    autoTable(doc, {
+      startY: 65,
+      head: [tableColumn],
+      body: tableRows,
+      theme: "grid",
+      styles: {
+        fontSize: 10,
+        cellPadding: 3,
+        halign: "center",
+        valign: "middle",
+        lineColor: [0, 0, 0],
+        lineWidth: 0.1,
+      },
+      columnStyles: {
+        1: { halign: "left" },
+        3: { halign: "right" },
+      },
+      headStyles: {
+        fillColor: [230, 230, 230],
+        textColor: 20,
+        fontStyle: "bold",
+      },
+      bodyStyles: {
+        textColor: [0, 0, 0],
+      },
+    });
 
-  // === FOOTER TEXT ===
-const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
-  doc.setFont("helvetica", "italic");
-  doc.setFontSize(10);
-  doc.text(`(Amount in Words: ${amountInWords(total)})`, 10, finalY);
+    // === FOOTER TEXT ===
+    const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
+    doc.setFont("helvetica", "italic");
+    doc.setFontSize(10);
+    doc.text(`(Amount in Words: ${amountInWords(total)})`, 10, finalY);
 
-  doc.setFont("helvetica", "bold");
-  doc.setFontSize(11);
-  doc.text("Authorized Signatory", 10, finalY + 25, { align: "left" });
-  doc.text(`For ${invoiceData.companyName}`, 10, finalY + 31, { align: "left" });
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(11);
+    doc.text("Authorized Signatory", 10, finalY + 25, { align: "left" });
+    doc.text(`For ${invoiceData.companyName}`, 10, finalY + 31, { align: "left" });
 
-  // Optional footer line
-  doc.setDrawColor(180);
-  doc.line(10, 285, 200, 285);
-  doc.setFontSize(9);
-  doc.setTextColor(100);
-  doc.text("This is a system-generated invoice.", 105, 290, { align: "center" });
+    // Optional footer line
+    doc.setDrawColor(180);
+    doc.line(10, 285, 200, 285);
+    doc.setFontSize(9);
+    doc.setTextColor(100);
+    doc.text("This is a system-generated invoice.", 105, 290, { align: "center" });
 
-  // Save file
-  doc.save(`${invoiceData.clientName}_Invoice.pdf`);
-};
+    // Save file
+    doc.save(`${invoiceData.clientName}_Invoice.pdf`);
+  };
   if (!showModal) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white dark:bg-gray-800 w-[700px] p-6 rounded-lg shadow-lg relative">
+    <div className="fixed inset-0 z-50 p-4 flex justify-center overflow-y-auto bg-black/50">
+      <div className="bg-white h-auto dark:bg-gray-800 w-[700px] rounded-lg shadow-lg relative">
         <button
           className="absolute top-3 right-3 text-xl font-bold text-gray-500 hover:text-black"
           onClick={onClose}
@@ -208,7 +208,7 @@ const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
         <div className="flex justify-end mb-4">
           <button
             onClick={downloadInvoice}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 mr-3 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             Download PDF
           </button>
@@ -229,7 +229,7 @@ const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
           <p className="text-center text-gray-600 dark:text-gray-300 m-0 p-0 ">
             {invoiceData.companyEmail}
           </p>
-          
+
           <div className="flex justify-between mt-2">
             <div>
               <strong>Bill No:</strong> {invoiceData.billNo}
@@ -238,11 +238,11 @@ const finalY = doc.lastAutoTable ? doc.lastAutoTable.finalY + 10 : 100;
               <strong>Date:</strong> {invoiceData.date}
             </div>
           </div>
-          
+
           <p>
             <strong>Client:</strong> {invoiceData.clientName}
           </p>
-     
+
 
           <table className="w-full mt-4 border border-gray-300 dark:border-gray-700 text-sm">
             <thead className="bg-gray-200 dark:bg-gray-700">

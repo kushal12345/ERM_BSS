@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Navbar from '../Navbar/navbar';
 import SidebarCom from '../Sidebar/Sidebar';
 import DashboardMain from '../Content/Content';
@@ -20,7 +20,7 @@ import Waitingform from '../Content/Waitingform';
 import PerformanceandEval from '../Content/PerformanceandEval';
 import Documents from '../Content/Documents';
 import Incident from '../Content/Incidents';
-import {Row,Col, Container} from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import InvoiceSystem from '../Content/Payout/invoice';
 import ExpenseTracker from '../Content/ExpenseTracking';
 import FinancialDashboard from '../Content/FinancialDashboard';
@@ -44,13 +44,12 @@ import AlertSystem from '../Content/alertsys';
 import CustomFullCalendar from '../Content/calenderview';
 import TrainingFeeTab from '../Content/TrainingFeetab';
 
-const Dashboard = ({loginuser}) => {
+const Dashboard = ({ loginuser }) => {
   const [page, setPage] = useState(null);
 
 
   const renderpage = () => {
     switch (page) {
-      
       case "dashboard":
         return <DashboardMain />;
       case "TrainingCert":
@@ -80,7 +79,7 @@ const Dashboard = ({loginuser}) => {
       case "Salary":
         return <SalaryRec />;
       case "AdvancePayment":
-        return <Advancepayment />;      
+        return <Advancepayment />;
       case "NewAdmission":
         return <NewAdmission />;
       case "Paymenthistory":
@@ -92,23 +91,23 @@ const Dashboard = ({loginuser}) => {
       case "ssf":
         return <Ssf />;
       case "managestaff":
-        return <Managestaff />; 
+        return <Managestaff />;
       case "manageclient":
-          return <Manageclient />; 
+        return <Manageclient />;
       case "Attendance":
-          return <Attendance />;   
+        return <Attendance />;
       case "assigntask":
-          return <AssignTask/>;
+        return <AssignTask />;
       case "dressstock":
-          return <Dressstock />; 
+        return <Dressstock />;
       case "warningpage":
-          return <EmployeeWarningPage />;
+        return <EmployeeWarningPage />;
       case "holidaypage":
-        return <HolidayFormPage />; 
+        return <HolidayFormPage />;
       case "waitingpage":
         return <Waitingform />;
       case "invoice":
-        return <InvoiceSystem/>;
+        return <InvoiceSystem />;
       case "performanceandeval":
         return <PerformanceandEval />;
       case "documents":
@@ -137,43 +136,38 @@ const Dashboard = ({loginuser}) => {
         return <DashboardMain />;
     }
   }
-  
- 
+
+
   return (
-    <Container fluid className="min-h-[100dvh] bg-gray-200 dark:bg-[#18191A] p-0 m-0 overflow-hidden">
+    <Container fluid className="min-h-[100dvh] bg-gray-200 dark:bg-[#18191A] p-0">
+      <Row className="g-0 min-h-[100dvh]">
 
-  {/* Navbar */}
-  <Row className="g-0 mb-3">
-    <Col xs={12}>
-      <Navbar loginuser={loginuser} />
-    </Col>
-  </Row>
+        {/* Sidebar */}
+        <Col
+          md={4}
+          lg={2}
+          className="d-none d-md-block border-r border-gray-200 dark:border-gray-700 h-[100dvh] overflow-y-auto"
+        >
+          <SidebarCom setPage={setPage} userRole={loginuser.role} />
+        </Col>
 
-  {/* Body */}
-  <Row className="g-4 flex-nowrap" style={{ height: "calc(100vh - 64px)" }}>
-    
-    {/* Sidebar */}
-    <Col
-      xs={12}
-      md={4}
-      lg={2}
-      className="h-full overflow-y-auto border-r border-gray-200 dark:border-gray-700"
-    >
-      <SidebarCom setPage={setPage} userRole={loginuser.role} />
-    </Col>
+        {/* Main Content */}
+        <Col className="flex flex-col min-h-[100dvh] h-[100dvh]">
+          {/* Navbar */}
+          <div className="sticky top-0 z-20">
+            <Navbar loginuser={loginuser} />
+          </div>
 
-    {/* Main Content */}
-    <Col
-      xs={12}
-      md={8}
-      lg={10}
-      className="h-full overflow-y-auto pl-3"
-    >
-      {renderpage()}
-    </Col>
+          {/* Scrollable page content */}
+          <div className="flex-1 overflow-y-auto">
+            {renderpage()}
+          </div>
+        </Col>
 
-  </Row>
-</Container>
+      </Row>
+    </Container>
+
+
 
   );
 }

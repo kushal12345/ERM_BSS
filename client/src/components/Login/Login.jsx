@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import api from "../../utils/api";
 import { useContext } from "react";
 import AuthContext from "../Hooks/Context/AuthContext";
+import chest from "../assets/chest.png";
 
-const Login = ({setloginUser}) => {
+
+const Login = ({ setloginUser }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
@@ -53,68 +55,84 @@ const Login = ({setloginUser}) => {
   };
 
   return (
-    <div className="w-screen h-screen flex items-center">
-      <form className="w-[30%] mx-auto">
-        <div className="mb-2">
-          <span className="font-bold text-xl dark:text-white">Login to Continue</span>
+    <div className="w-screen min-h-screen grid grid-cols-1 md:grid-cols-2">
+
+      {/* Left Section */}
+      <div className="w-full bg-[#0100B9] md:rounded-none sm:rounded-none lg:rounded-br-[10%] flex flex-col items-center justify-center py-10 md:py-0">
+        <img src={chest} className="w-24 md:w-[20%]" alt="image" />
+        <h5 className="text-white text-lg md:text-xl mt-4 text-center">
+          Bauddhanath Security
+        </h5>
+        <i className="text-white text-sm md:text-md text-center">
+          "Enterprise Resource Management System"
+        </i>
+      </div>
+
+      {/* Right Section */}
+      <div className="w-full flex items-center justify-center px-4 py-10">
+
+        <div className="relative w-full max-w-md bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs">
+          <div className="absolute -top-16 -right-16 w-32 h-32 rounded-full bg-[#0100B9]/30 hidden sm:block"></div>
+
+          <form>
+            <div className="mb-2">
+              <span className="font-bold text-xl">Welcome Back</span>
+            </div>
+
+            {/* Username */}
+            <div className="mb-2">
+              <label className="block mb-2 text-sm font-medium">Username</label>
+              <input
+                type="text"
+                name="uname"
+                className="bg-gray-50 border border-gray-800 text-sm rounded-lg w-full p-2.5"
+                autoComplete="username"
+                placeholder="Username"
+                onChange={handleChange}
+                value={user.uname}
+              />
+            </div>
+
+            {/* Password */}
+            <div className="mb-3">
+              <label className="block mb-2 text-sm font-medium">Password</label>
+              <input
+                type="password"
+                name="password"
+                className="bg-gray-50 border border-gray-800 text-sm rounded-lg w-full p-2.5"
+                autoComplete="current-password"
+                placeholder="***********"
+                onChange={handleChange}
+                value={user.password}
+              />
+            </div>
+
+            {/* Remember */}
+            <div className="flex items-center mb-3">
+              <input
+                type="checkbox"
+                name="remember"
+                checked={user.remember}
+                onChange={handleChange}
+                className="w-4 h-4"
+              />
+              <label className="ml-2 text-sm">Remember me</label>
+            </div>
+
+            {/* Button */}
+            <button
+              type="submit"
+              onClick={handleSubmit}
+              disabled={loading}
+              className="w-full bg-blue-700 hover:bg-blue-800 text-white font-medium rounded-lg px-5 py-2.5"
+            >
+              {loading ? "Loading..." : "Login"}
+            </button>
+          </form>
         </div>
-        <div className="mb-2">
-          <label htmlFor="uname" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Username
-          </label>
-          <input
-            type="text"
-            id="uname"
-            name="uname"
-            className="bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="Username"
-            autoComplete="username"
-            required
-            onChange={handleChange}
-            value={user.uname}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-            Your password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            className="bg-gray-50 border border-gray-800 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder:text-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            placeholder="***********"
-            autoComplete="new-password"
-            required
-            onChange={handleChange}
-            value={user.password}
-          />
-        </div>
-        <div className="flex items-start mb-3">
-          <div className="flex items-center h-5">
-            <input
-              id="remember"
-              name="remember"
-              type="checkbox"
-              checked={user.remember}
-              onChange={handleChange}
-              className="w-4 h-4 border border-gray-800 rounded-sm bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-            />
-          </div>
-          <label htmlFor="remember" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            Remember me
-          </label>
-        </div>
-        <button
-          type="submit"
-          className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          onClick={handleSubmit}
-          disabled={loading}
-        >
-          {loading ? "Loading..." : "Submit"}
-        </button>
-      </form>
+      </div>
     </div>
+
   );
 };
 

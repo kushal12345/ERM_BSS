@@ -1,23 +1,25 @@
 import React, { useState } from "react";
 import logo from "../assets/chest.png";
 import { Dropdown, DropdownItem, DropdownHeader } from "flowbite-react";
+import { Search } from "lucide-react";
+import { DarkThemeToggle } from "flowbite-react";
 import Setting from "../Content/Setting/Setting";
 
 const Navbar = ({ loginuser }) => {
   const [showModal, setShowModal] = useState(false);
+  const [searchFocus, setSearchFocus] = useState(false);
 
   return (
-    <div className="w-full bg-white dark:bg-[#212528] overflow-hidden">
-      {/* Navbar Container */}
-      <nav className="dark:shadow-lg">
+    <div className="w-full bg-[#ffffff] dark:border-gray-800 dark:bg-[#131518] overflow-hidden">
+      <nav>
         <div className="flex items-center justify-between max-w-screen-xl mx-auto px-4 py-2">
           {/* Brand */}
           <a
             href="#"
             className="flex items-center space-x-3 no-underline rtl:space-x-reverse"
           >
-            <span className="text-xl font-bold text-black dark:text-white">
-              ERM System
+            <span className="text-xl font-bold text-[#000000] dark:text-white">
+              Welcome Back, {loginuser?.uname || "User"}
             </span>
           </a>
 
@@ -25,20 +27,42 @@ const Navbar = ({ loginuser }) => {
           <div className="flex items-center justify-center space-x-2 md:space-x-3">
             {loginuser ? (
               <>
-                {/* 🔔 Notification Dropdown */}
+                {/* Search Bar */}
+                <div className="flex-1 max-w-sm hidden sm:block">
+                  <div
+                    className={`relative transition-all duration-300 ${searchFocus ? "ring-2 ring-purple-500/50" : ""
+                      }`}
+                  >
+                    <Search
+                      size={16}
+                      className="absolute left-3 top-1/2 z-10 -translate-y-1/2 text-gray-400 dark:text-gray-300 pointer-events-none"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      onFocus={() => setSearchFocus(true)}
+                      onBlur={() => setSearchFocus(false)}
+                      className="w-full 
+                                  bg-white text-black placeholder-gray-400
+                                  dark:bg-black dark:text-white dark:placeholder-gray-400
+                                  rounded-full py-1.5 pl-10 pr-3 text-sm
+                                  border border-gray-300 dark:border-gray-700
+                                  hover:border-gray-500 dark:hover:border-gray-500
+                                  focus:outline-none focus:ring-0
+                                  transition-all duration-300"
+                    />
+                  </div>
+                </div>
+
+                {/* Notifications */}
                 <Dropdown
                   label=""
                   inline
                   dismissOnClick={false}
                   renderTrigger={() => (
-                    <button
-                      className="border flex items-center justify-center p-2 rounded-lg transition-colors duration-200 
-                        text-gray-800 dark:text-white 
-                        hover:bg-gray-100 dark:hover:bg-gray-700 
-                        focus:outline-none focus:ring-2 focus:ring-blue-400"
-                    >
+                    <button className="flex items-center justify-center p-2 rounded-lg text-red border border-gray-700 dark:text-white hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-purple-500">
                       <svg
-                        className="size-6 text-gray-800 dark:text-white group-hover:text-blue-500"
+                        className="w-6 h-6 text-gray-700 dark:text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -54,44 +78,46 @@ const Navbar = ({ loginuser }) => {
                     </button>
                   )}
                 >
-                  <DropdownItem className="py-2 px-3">
+                  <DropdownItem className="py-2 px-3 text-black dark:text-white">
                     🔔 New Message from <b>Chinkaji Kumal</b>
                   </DropdownItem>
                 </Dropdown>
 
-                {/* 👤 Profile Dropdown */}
+                {/* Dark Mode Toggle */}
+                <div className="border border-gray-700 rounded-md">
+                  <DarkThemeToggle />
+                </div>
+
+                {/* Profile Dropdown */}
                 <Dropdown
-                    label=""
-                    inline
-                    dismissOnClick={false}
-                    renderTrigger={() => (
-                        <button
-                        className="flex items-center justify-center w-10 h-10 rounded-full overflow-hidden border focus:outline-none focus:ring-2 focus:ring-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            <img
-                                src={logo}
-                                alt="User profile"
-                                className="w-full h-full object-cover"
-                            />
-                        </button>
-                    )}
-                    >
-                    {/* Header */}
-                    <DropdownHeader className="py-1 px-3 border-b">
-                        <span className="text-sm font-bold text-gray-900 dark:text-white">
-                        {loginuser?.uname || "User"}
-                        </span>
-                    </DropdownHeader>
-
-                    {/* Menu Items */}
-                    <DropdownItem className="py-1 px-3">Profile</DropdownItem>
-                    <DropdownItem className="py-1 px-3" onClick={() => setShowModal(true)}>
-                        Settings
-                    </DropdownItem>
-                    <DropdownItem className="py-1 px-3">Earnings</DropdownItem>
-                    <DropdownItem className="py-1 px-3">Sign out</DropdownItem>
-                    </Dropdown>
-
+                  label=""
+                  inline
+                  dismissOnClick={false}
+                  renderTrigger={() => (
+                    <button className="flex items-center  justify-center w-10 h-10 rounded-full overflow-hidden border border-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                      <img
+                        src={logo}
+                        alt="User profile"
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  )}
+                >
+                  <DropdownHeader className=" border-b border-gray-700">
+                    <span className="text-sm w-full font-bold text-black dark:text-white">
+                      {loginuser?.uname || "User"}
+                    </span>
+                  </DropdownHeader>
+                  <DropdownItem className="!px-0 !py-2 text-black dark:text-white">Profile</DropdownItem>
+                  <DropdownItem
+                    className="!px-0 !py-2 text-black dark:text-white"
+                    onClick={() => setShowModal(true)}
+                  >
+                    Settings
+                  </DropdownItem>
+                  <DropdownItem className="!px-0 !py-2 text-black dark:text-white">Earnings</DropdownItem>
+                  <DropdownItem className="!px-0 !py-2 text-black dark:text-white">Sign out</DropdownItem>
+                </Dropdown>
               </>
             ) : (
               <a
@@ -106,13 +132,11 @@ const Navbar = ({ loginuser }) => {
             <button
               data-collapse-toggle="mega-menu"
               type="button"
-              className="inline-flex md:hidden items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-              aria-controls="mega-menu"
-              aria-expanded="false"
+              className="inline-flex md:hidden items-center p-2 w-10 h-10 justify-center text-white rounded-lg hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-purple-500"
             >
               <span className="sr-only">Open main menu</span>
               <svg
-                className="size-5"
+                className="w-5 h-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 17 14"
