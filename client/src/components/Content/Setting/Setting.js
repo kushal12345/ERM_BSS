@@ -9,7 +9,7 @@ import { Search } from 'lucide-react';
 import { FetchSearchedstaff } from '../../Fetch/FetchSearchedstaff';
 
 const Setting = ({ showModal, onClose }) => {
-  const [selectedRole, setSelectedRole] = useState('Admin');
+  const [selectedRole, setSelectedRole] = useState('Accountant');
   const [currentroleuser, setCurrentroleuser] = useState(null);
   const [searched, setSearched] = useState([null]);
 
@@ -32,44 +32,15 @@ const Setting = ({ showModal, onClose }) => {
 
   const roles = ['Accountant', 'Supervisor', 'Receptionist'];
 
-  const roleFeatures = {
-    Accountant: [
-      'Salary',
-      'Advanced Payment',
-      'Payroll Reports',
-      'Invoice',
-      'Training Fees',
-      'Expenses Tracking',
-      'Financial Dashboard',
-      'Salary Schedule Management',
-      'Tax & Deductions Management',
-      'Commission / Bonus',
-    ],
-    Supervisor: [
-      'Approve Attendance',
-      'View Guard Reports',
-      'Assign Tasks',
-      'Performance Evaluation',
-      'Shift Scheduling / Roster',
-      'Leave Management',
-    ],
-    Guard: [
-      'Change Password',
-      'Update Availability',
-      'Duty Logbook',
-      'Client Site Details',
-    ],
-    Receptionist: [
-      'View Visitors Log',
-      'Manage Check-in / Check-out',
-      'Client Communication Log',
-      'New Admission',
-      'Message',
-    ],
-  };
+  const roleFeatures = [
+    'Payout & Finance',
+    'HR & Staff',
+    'Operations',
+    'Shared Modules'
+  ];
 
   const renderRoleOptions = () => {
-    const features = roleFeatures[selectedRole] || [];
+    const features = roleFeatures || [];
     return (
       <Form>
         <Form.Group>

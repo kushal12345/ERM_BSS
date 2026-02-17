@@ -51,6 +51,8 @@ const steps = [
   "Family Details",
   "Educational Details",
   "Document Details",
+  'Bank Details',
+  'Submit'
 ];
 
 
@@ -187,7 +189,7 @@ export default function NewAdmission() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
 
         {/* LEFT SECTION */}
-        <div className="lg:col-span-8">
+        <div className="lg:col-span-9">
           <div className="bg-white rounded-2xl shadow border border-gray-200">
 
             {/* Header */}
@@ -214,7 +216,7 @@ export default function NewAdmission() {
             </div>
 
             {/* Tabs */}
-            <div className="flex border-b border-gray-200 px-6">
+            <div className="flex border-b border-gray-200">
               {steps.map((step, index) => {
                 const stepNumber = index + 1;
                 const isActive = currentStep === stepNumber;
@@ -223,7 +225,7 @@ export default function NewAdmission() {
                   <button
                     key={step}
                     onClick={() => setCurrentStep(stepNumber)}
-                    className={`px-4 py-3 text-sm font-medium transition
+                    className={`px-3 py-3 text-sm font-medium transition
                       ${isActive
                         ? "border-b-2 border-purple-600 text-purple-600"
                         : "text-gray-500 hover:text-gray-700"
@@ -243,7 +245,7 @@ export default function NewAdmission() {
                   {/* Name Fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="Fname">First Name *</label>
+                      <label htmlFor="Fname">First Name <span className="text-red-500">*</span></label>
                       <input
                         id="Fname"
                         name="Fname"
@@ -264,7 +266,7 @@ export default function NewAdmission() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="Lname">Last Name *</label>
+                      <label htmlFor="Lname">Last Name <span className="text-red-500">*</span></label>
                       <input
                         id="Lname"
                         name="Lname"
@@ -279,7 +281,7 @@ export default function NewAdmission() {
                   {/* Email, Phone, Blood Group */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="email">Email *</label>
+                      <label htmlFor="email">Email <span className="text-red-500">*</span></label>
                       <input
                         type="email"
                         id="email"
@@ -291,7 +293,7 @@ export default function NewAdmission() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="phno">Phone *</label>
+                      <label htmlFor="phno">Phone <span className="text-red-500">*</span></label>
                       <input
                         type="tel"
                         id="phno"
@@ -303,7 +305,7 @@ export default function NewAdmission() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="bg">Blood Group</label>
+                      <label htmlFor="bg">Blood Group <span className="text-red-500">*</span></label>
                       <select
                         id="bg"
                         name="bg"
@@ -327,7 +329,7 @@ export default function NewAdmission() {
                   {/* DOB, Gender, Marital Status */}
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <div>
-                      <label htmlFor="dob">Date of Birth *</label>
+                      <label htmlFor="dob">Date of Birth <span className="text-red-500">*</span></label>
                       <input
                         type="date"
                         id="dob"
@@ -339,7 +341,7 @@ export default function NewAdmission() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="gender">Gender *</label>
+                      <label htmlFor="gender">Gender <span className="text-red-500">*</span></label>
                       <select
                         id="gender"
                         name="gender"
@@ -355,7 +357,7 @@ export default function NewAdmission() {
                       </select>
                     </div>
                     <div>
-                      <label htmlFor="marital">Marital Status *</label>
+                      <label htmlFor="marital">Marital Status <span className="text-red-500">*</span></label>
                       <select
                         id="marital"
                         name="marital"
@@ -375,7 +377,7 @@ export default function NewAdmission() {
 
                   {/* Temporary Address */}
                   <div>
-                    <label className="font-medium">Temporary Address *</label>
+                    <label className="font-medium">Temporary Address <span className="text-red-500">*</span></label>
                     <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mt-2">
                       <input name="TempState" value={user.TempState} onChange={handleChange} placeholder="State" required className="p-2 border border-gray-300 rounded-md w-full" />
                       <input name="TempDist" value={user.TempDist} onChange={handleChange} placeholder="District" required className="p-2 border border-gray-300 rounded-md w-full" />
@@ -387,7 +389,7 @@ export default function NewAdmission() {
 
                   {/* Permanent Address */}
                   <div>
-                    <label className="font-medium">Permanent Address *</label>
+                    <label className="font-medium">Permanent Address <span className="text-red-500">*</span></label>
                     <div className="grid grid-cols-1 sm:grid-cols-5 gap-4 mt-2">
                       <input name="PerState" value={user.PerState} onChange={handleChange} placeholder="State" required className="p-2 border border-gray-300 rounded-md w-full" />
                       <input name="PerDist" value={user.PerDist} onChange={handleChange} placeholder="District" required className="p-2 border border-gray-300 rounded-md w-full" />
@@ -403,21 +405,378 @@ export default function NewAdmission() {
 
               {currentStep === 2 && (
                 <div className="text-gray-600">
-                  Family Details content goes here
+                  {/* Family Details */}
+                  <section className="space-y-6">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      Family Details <span className="text-red-600">*</span>
+                    </h3>
+
+                    {/* Spouse */}
+                    <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                      <p className="font-medium text-gray-700 dark:text-gray-300">Spouse / Husband-Wife</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                        <input
+                          type="text"
+                          name="Huswifname"
+                          value={user.Huswifname}
+                          onChange={handleChange}
+                          placeholder="Full Name"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <input
+                          type="tel"
+                          name="famphno"
+                          value={user.famphno}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <div className="flex flex-col">
+                          <label className="cursor-pointer inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                            Upload Document
+                            <input
+                              type="file"
+                              name="famdocfile"
+                              onChange={handleFileChange}
+                              accept="image/*,application/pdf"
+                              className="hidden"
+                            />
+                          </label>
+                          {user.famdocfile && (
+                            <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">{user.famdocfile.name}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Mother */}
+                    <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                      <p className="font-medium text-gray-700 dark:text-gray-300">Mother</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                        <input
+                          type="text"
+                          name="mothname"
+                          value={user.mothname}
+                          onChange={handleChange}
+                          placeholder="Full Name"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <input
+                          type="tel"
+                          name="mothphno"
+                          value={user.mothphno}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <div className="flex flex-col">
+                          <label className="cursor-pointer inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                            Upload Document
+                            <input
+                              type="file"
+                              name="mothdocfile"
+                              onChange={handleFileChange}
+                              accept="image/*,application/pdf"
+                              className="hidden"
+                            />
+                          </label>
+                          {user.mothdocfile && (
+                            <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">{user.mothdocfile.name}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Father */}
+                    <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                      <p className="font-medium text-gray-700 dark:text-gray-300">Father</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                        <input
+                          type="text"
+                          name="fathname"
+                          value={user.fathname}
+                          onChange={handleChange}
+                          placeholder="Full Name"
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <input
+                          type="tel"
+                          name="fathphno"
+                          value={user.fathphno}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <div className="flex flex-col">
+                          <label className="cursor-pointer inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                            Upload Document
+                            <input
+                              type="file"
+                              name="fathdocfile"
+                              onChange={handleFileChange}
+                              accept="image/*,application/pdf"
+                              className="hidden"
+                            />
+                          </label>
+                          {user.fathdocfile && (
+                            <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">{user.fathdocfile.name}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Grandfather */}
+                    <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                      <p className="font-medium text-gray-700 dark:text-gray-300">Grandfather</p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+                        <input
+                          type="text"
+                          name="grandfathname"
+                          value={user.grandfathname}
+                          onChange={handleChange}
+                          placeholder="Full Name"
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <input
+                          type="tel"
+                          name="grandfathno"
+                          value={user.grandfathno}
+                          onChange={handleChange}
+                          placeholder="Phone Number"
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                        <div className="flex flex-col">
+                          <label className="cursor-pointer inline-flex items-center justify-center px-3 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition">
+                            Upload Document
+                            <input
+                              type="file"
+                              name="grandfathdocfile"
+                              onChange={handleFileChange}
+                              accept="image/*,application/pdf"
+                              className="hidden"
+                            />
+                          </label>
+                          {user.grandfathdocfile && (
+                            <span className="text-xs text-gray-600 dark:text-gray-300 mt-1">{user.grandfathdocfile.name}</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+
                 </div>
               )}
 
               {currentStep === 3 && (
                 <div className="text-gray-600">
-                  Educational Details content goes here
+                  {/* Education */}
+                  <section className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      Educational Details <span className="text-red-600">*</span>
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-1 gap-4">
+                      <label htmlFor="edu" className="text-gray-700 dark:text-gray-300 font-medium">
+                        Highest Qualification
+                      </label>
+                      <select
+                        id="edu"
+                        name="edu"
+                        value={user.edu}
+                        onChange={handleChange}
+                        required
+                        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                      >
+                        <option value="">Select highest qualification</option>
+                        <option>No formal education</option>
+                        <option>Grade 5</option>
+                        <option>Grade 8</option>
+                        <option>SLC</option>
+                        <option>+2</option>
+                        <option>Bachelor</option>
+                        <option>Master</option>
+                      </select>
+                    </div>
+                  </section>
+
                 </div>
               )}
 
               {currentStep === 4 && (
                 <div className="text-gray-600">
-                  Document Details content goes here
+                  {/* Document Information */}
+                  <section className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-4">
+                    <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                      Document Information <span className="text-red-600">*</span>
+                    </h3>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                      <div className="flex flex-col">
+                        <label htmlFor="doctype" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                          Document Type
+                        </label>
+                        <select
+                          id="doctype"
+                          name="doctype"
+                          value={user.doctype}
+                          onChange={handleChange}
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        >
+                          <option value="">Select document type</option>
+                          <option value="Citizenship">Citizenship</option>
+                          <option value="Passport">Passport</option>
+                        </select>
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label htmlFor="docno" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                          Document No
+                        </label>
+                        <input
+                          id="docno"
+                          name="docno"
+                          value={user.docno}
+                          onChange={handleChange}
+                          placeholder="Document No"
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label htmlFor="IssueDistrict" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                          Issued District
+                        </label>
+                        <input
+                          id="IssueDistrict"
+                          name="IssueDistrict"
+                          value={user.IssueDistrict}
+                          onChange={handleChange}
+                          placeholder="Issued District"
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                      </div>
+
+                      <div className="flex flex-col">
+                        <label htmlFor="IssueDate" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                          Issue Date
+                        </label>
+                        <input
+                          id="IssueDate"
+                          type="date"
+                          name="IssueDate"
+                          value={user.IssueDate}
+                          onChange={handleChange}
+                          required
+                          className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex flex-col mt-4">
+                      <label htmlFor="docfile" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        Upload Document <span className="text-red-600">*</span>
+                      </label>
+                      <input
+                        id="docfile"
+                        type="file"
+                        name="docfile"
+                        accept="image/*,application/pdf"
+                        onChange={handleFileChange}
+                        required
+                        className="w-full text-gray-700 dark:text-gray-300"
+                      />
+                      {user.docfile && <div className="text-xs mt-1 text-gray-600 dark:text-gray-400">{user.docfile.name}</div>}
+                    </div>
+                  </section>
+
+
                 </div>
               )}
+
+              {currentStep === 5 && (
+                <section className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-6 space-y-6">
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
+                    Bank Details <span className="text-red-600">*</span>
+                  </h3>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Account Holder Name */}
+                    <div className="flex flex-col">
+                      <label htmlFor="accountName" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        Account Holder Name
+                      </label>
+                      <input
+                        id="accountName"
+                        name="accountName"
+                        value={user.accountName || ""}
+                        onChange={handleChange}
+                        placeholder="Full Name as in bank"
+                        required
+                        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                      />
+                    </div>
+
+                    {/* Bank Name */}
+                    <div className="flex flex-col">
+                      <label htmlFor="bankName" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        Bank Name
+                      </label>
+                      <input
+                        id="bankName"
+                        name="bankName"
+                        value={user.bankName || ""}
+                        onChange={handleChange}
+                        placeholder="Bank Name"
+                        required
+                        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                      />
+                    </div>
+
+                    {/* Account Number */}
+                    <div className="flex flex-col">
+                      <label htmlFor="accountNo" className="text-gray-700 dark:text-gray-300 font-medium mb-1">
+                        Account Number
+                      </label>
+                      <input
+                        id="accountNo"
+                        name="accountNo"
+                        value={user.accountNo || ""}
+                        onChange={handleChange}
+                        placeholder="e.g., 1234567890"
+                        required
+                        className="w-full p-3 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 focus:border-purple-600 transition"
+                      />
+                    </div>
+
+
+                  </div>
+
+                </section>
+
+              )}
+
+              {currentStep === 6 && (
+                <div className="space-y-6 text-gray-700">
+                  <h3 className="text-md font-medium dark:text-white">Submit</h3>
+                  {/* Terms */}
+                  <div className="flex items-start gap-3 mt-4">
+                    <input id="terms" name="termsaggree" type="checkbox" checked={user.termsaggree} onChange={handleChange} required />
+                    <label htmlFor="terms" className="text-sm">I agree to the terms and conditions.</label>
+                  </div>
+
+                  <div className="flex flex-col items-center justify-center mt-6">
+                    <button type="submit" disabled={submitting} className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 disabled:opacity-60">
+                      {submitting ? "Submitting..." : "Register New Admission"}
+                    </button>
+                  </div>
+                </div>
+              )}
+
             </div>
 
             {/* Footer Buttons */}
@@ -452,21 +811,41 @@ export default function NewAdmission() {
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div className="lg:col-span-4 space-y-6">
+        <div className="lg:col-span-3 space-y-6">
 
           {/* Image Uploads */}
 
-          <div className="">
-            <div className="flex flex-col items-center gap-3 bg-gray-50 dark:bg-gray-800 p-4 rounded-md border border-gray-200 dark:border-gray-700">
-              <div className="w-40 h-40 rounded-full overflow-hidden bg-gray-200">
-                <img src={temppicUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"} alt="preview" className="w-full h-full object-cover" />
-              </div>
-              <div className="w-full text-center">
-                <label>Upload Profile Photo</label>
-                <input type="file" name="image" accept="image/*" onChange={handleFileChange} />
+          <div className="flex flex-col items-center gap-4 bg-gray-50 dark:bg-gray-800 p-6 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+            {/* Profile Picture */}
+            <div className="relative w-40 h-40 rounded-full overflow-hidden bg-gray-200 hover:ring-4 hover:ring-blue-400 transition-all duration-300 cursor-pointer">
+              <img
+                src={temppicUrl || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"}
+                alt="preview"
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black bg-opacity-25 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 rounded-full">
+                <span className="text-white font-medium">Change</span>
               </div>
             </div>
+
+            {/* Upload Button */}
+            <div className="flex flex-col items-center gap-2 w-full">
+              <label className="cursor-pointer inline-flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 transition">
+                Upload Photo
+                <input type="file" name="image" accept="image/*" onChange={handleFileChange} className="hidden" />
+              </label>
+              {temppicUrl && (
+                <button
+                  type="button"
+                  onClick={() => setTemppicUrl(null)}
+                  className="text-sm text-red-500 hover:underline"
+                >
+                  Remove Photo
+                </button>
+              )}
+            </div>
           </div>
+
 
           {/* Progress Card */}
           <div className="bg-white rounded-2xl shadow border border-gray-200 p-6">
