@@ -249,7 +249,7 @@ export default function SidebarCom({ setPage, userRole = "admin" }) {
         <div className="sticky bottom-0 shrink-0 border-t border-gray-200 bg-[#0100B9] p-2 dark:border-gray-800 dark:bg-[#131518]">
           <div className="text-xs text-white/80">Time: {formattedTime}</div>
           <div className="text-sm font-medium text-white">English Date: {formattedDate} </div>
-          <div className="text-sm font-medium text-white">Nepali Date {Nepalidate.format("YYYY-MM-DD")}</div>
+          <div className="text-sm font-medium text-white">Nepali Date {Nepalidate.format("YYYY-MM-DD")} </div>
         </div>
       </aside>
     </>

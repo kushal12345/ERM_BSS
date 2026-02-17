@@ -5,11 +5,13 @@ import { useContext } from "react";
 import AuthContext from "../Hooks/Context/AuthContext";
 import chest from "../assets/chest.png";
 
+import { EyeClosed, Eye } from 'lucide-react';
 
 const Login = ({ setloginUser }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const [showPassword, setShowPassword] = useState(false);
   const [user, setUser] = useState({
     uname: "",
     password: "",
@@ -94,10 +96,10 @@ const Login = ({ setloginUser }) => {
             </div>
 
             {/* Password */}
-            <div className="mb-3">
+            <div className="mb-3 relative">
               <label className="block mb-2 text-sm font-medium">Password</label>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 className="bg-gray-50 border border-gray-800 text-sm rounded-lg w-full p-2.5"
                 autoComplete="current-password"
@@ -105,6 +107,7 @@ const Login = ({ setloginUser }) => {
                 onChange={handleChange}
                 value={user.password}
               />
+              {showPassword ? <EyeClosed className="absolute right-2 top-1/2" onClick={() => setShowPassword(!showPassword)} size={20} /> : <Eye className="absolute right-2 top-1/2" onClick={() => setShowPassword(!showPassword)} size={20} />}
             </div>
 
             {/* Remember */}

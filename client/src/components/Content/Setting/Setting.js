@@ -23,35 +23,23 @@ const Setting = ({ showModal, onClose }) => {
   const handleSearch = (e) => {
     const value = e.target.value;
     setSearchTerm(value);
-    
+
     console.log('Searching employee:', value);
   };
   // ---------------- End Search ---------------- //
 
   if (!showModal) return null;
 
-  const roles = ['Admin', 'Accountant', 'Supervisor', 'Guard', 'Receptionist'];
+  const roles = ['Accountant', 'Supervisor', 'Receptionist'];
 
   const roleFeatures = {
-    Admin: [
-      'Manage Users',
-      'Access All Reports',
-      'System Settings',
-      'User Role & Permission Control',
-      'Branch / Site Management',
-      'Audit Log / Activity Tracking',
-      'Backup & Data Export',
-    ],
     Accountant: [
-      'Manage Users',
-      'Access Reports',
-      'System Settings',
-      'Payout / Salary Management',
-      'Advance Payment',
-      'Payment History',
+      'Salary',
+      'Advanced Payment',
       'Payroll Reports',
-      'Invoice Management',
-      'Expense Tracking',
+      'Invoice',
+      'Training Fees',
+      'Expenses Tracking',
       'Financial Dashboard',
       'Salary Schedule Management',
       'Tax & Deductions Management',
@@ -108,28 +96,28 @@ const Setting = ({ showModal, onClose }) => {
               <p>Empty! Hire new one.</p>
             )}
           </p>
-          
+
         </div>
         <div className="relative w-full sm:w-72">
-                <div className="relative">
-                  <Search
-                    className="absolute left-3 top-3 text-gray-400"
-                    size={18}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Search employee..."
-                    value={searchTerm}
-                    onChange={handleSearch}
-                    className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-3 
+          <div className="relative">
+            <Search
+              className="absolute left-3 top-3 text-gray-400"
+              size={18}
+            />
+            <input
+              type="text"
+              placeholder="Search employee..."
+              value={searchTerm}
+              onChange={handleSearch}
+              className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-3 
                                focus:outline-none focus:ring-2 focus:ring-blue-500
                                dark:border-gray-600 dark:bg-[#1a1d21] dark:text-white"
-                  />
-                </div>
-            </div>
+            />
+          </div>
+        </div>
         {!currentroleuser && searched && searched.length > 0 && (
           <ListGroup className="mt-0 max-h-48 overflow-y-auto">
-            {searched.map((emp) => (  
+            {searched.map((emp) => (
               <ListGroup.Item
                 key={emp && emp._id ? emp._id : null}
                 action
